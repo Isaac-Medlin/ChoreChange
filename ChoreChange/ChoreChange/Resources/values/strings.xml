@@ -1,0 +1,8 @@
+<resources>
+  <string name="app_name">ChoreChange</string>
+  <string name="action_settings">Settings</string>
+  <string name="NavChores">Chores</string>
+  <string name="NavChildren">Children</string>
+  <string name="NavSettings">Settings</string>
+  <string name="ConnectionString">Server = tcp:chore-change-server.database.windows.net,1433; Initial Catalog = ChoreChange; Persist Security Info = False; User ID = isaac.medlin; Password = Trooper123%; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False;Connection Timeout = 30;</string>
+</resources>

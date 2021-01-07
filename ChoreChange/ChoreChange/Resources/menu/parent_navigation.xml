@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:id="@+id/Parent_Navigation_Children"
+        android:icon="@drawable/children"
+        android:title="@string/NavChildren"/>
+  <item
+        android:id="@+id/Parent_Navigation_Chores"
+        android:icon="@drawable/chores"
+        android:title="@string/NavChores"/>
+  <item
+        android:id="@+id/Parent_Navigation_Settings"
+        android:icon="@drawable/settings"
+        android:title="@string/NavSettings"/>
+</menu>
