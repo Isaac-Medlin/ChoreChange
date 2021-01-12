@@ -16,15 +16,16 @@ namespace ChoreChange
     {
         public ConnectionString()
         {
-            connection = "Server = tcp:chore-change-server.database.windows.net,1433; " +
+            m_connectionString = "Server = tcp:chore-change-server.database.windows.net,1433; " +
                 "Initial Catalog = ChoreChange; Persist Security Info = False; " +
                 "User ID = isaac.medlin; Password = Trooper123%; MultipleActiveResultSets = False; Encrypt = True; " +
                 "TrustServerCertificate = False;Connection Timeout = 30;";
         }
-        public string connection
+        public string connectionString
         {
-            get;
+            get { return m_connectionString; }
         }
+        private string m_connectionString;
 
     }
 }

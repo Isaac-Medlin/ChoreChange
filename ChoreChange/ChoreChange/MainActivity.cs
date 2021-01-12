@@ -17,28 +17,42 @@ namespace ChoreChange
         BottomNavigationView navigation;
         TextView text;
         Button dataButton;
+        FloatingActionButton addChoreButton;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.ParentChore);
+
+            //used for loading screen/toast in customDialog
+
             ConnectionString conn = new ConnectionString();
 
             navigation = FindViewById<BottomNavigationView>(Resource.Id.navigation);
             navigation.SelectedItemId = Resource.Id.Parent_Navigation_Chores;
             navigation.SetOnNavigationItemSelectedListener(this);
 
+            ParentAccount parent = new ParentAccount(1, "Isaac", "Where did you go to highschool");
+
             dataButton = FindViewById<Button>(Resource.Id.DatabaseButton);
+            addChoreButton = FindViewById<FloatingActionButton>(Resource.Id.AddChoreButton);
+
+            addChoreButton.Click += delegate
+            {
+                CustomAddChoreDialog diag = new CustomAddChoreDialog(this, parent);
+                diag.Window.SetSoftInputMode(SoftInput.AdjustResize);
+                diag.Show();
+            };
+
+
+            //testing database functions
             dataButton.Click += delegate
             {
                 text = FindViewById<TextView>(Resource.Id.Textbox);
-                System.Console.WriteLine("{0}");
-                //string queryString =
-                //        "INSERT INTO dbo.ParentAccounts Values('Isaac','isaac.medlin','password','Where did you got to highschool?','Yreka')";
                 string queryString =
                         "SELECT * FROM dbo.ParentAccounts";
-                using (SqlConnection connection = new SqlConnection(conn.connection))
+                using (SqlConnection connection = new SqlConnection(conn.connectionString))
                 {
                     SqlCommand command = new SqlCommand(
                         queryString, connection);
@@ -56,6 +70,7 @@ namespace ChoreChange
                         }
                         text.Text = "Name: " + name + " UserName: " + username;
                     }
+                    connection.Close();
                 }
             };
         }
