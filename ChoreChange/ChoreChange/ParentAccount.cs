@@ -17,14 +17,52 @@ namespace ChoreChange
         public ParentAccount(int id, string displayName, string securityQuestion) 
             : base(id, displayName, securityQuestion)
         {
-            m_chores = new List<Chore>();
+            m_incompleteChores = new List<Chore>();
+            m_acceptedChores = new List<Chore>();
+            m_awaitingChores = new List<Chore>();
+            m_completeChores = new List<Chore>();
         }
 
-        public void AddChore(Chore chore)
+        //functions for inclomplete chores
+        public void AddIncompleteChore(Chore chore)
         {
-            m_chores.Add(chore);
+            m_incompleteChores.Add(chore);
         }
-        List<Chore> m_chores;
+        public List<Chore> IncompleteChores
+        {
+            get { return m_incompleteChores; }
+        }
+        //functions for accepted chores
+        public void AddAcceptedChore(Chore chore)
+        {
+            m_acceptedChores.Add(chore);
+        }
+        public List<Chore> AcceptedChores
+        {
+            get { return m_acceptedChores; }
+        }
+        //functions for awaiting approval chores
+        public void AddAwaitingChore(Chore chore)
+        {
+            m_awaitingChores.Add(chore);
+        }
+        public List<Chore> AwaitingChores
+        {
+            get { return m_awaitingChores; }
+        }
+        //function for Completed Chores
+        public void AddCompletedChore(Chore chore)
+        {
+            m_completeChores.Add(chore);
+        }
+        public List<Chore> CompletedChores
+        {
+            get { return m_completeChores; }
+        }
+        List<Chore> m_incompleteChores;
+        List<Chore> m_acceptedChores;
+        List<Chore> m_awaitingChores;
+        List<Chore> m_completeChores;
 
     }
 }

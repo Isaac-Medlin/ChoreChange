@@ -6,30 +6,88 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal">
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/ParentChoresCycleButtons">
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Chore Menu"
-                android:id="@+id/Textbox"/>
+            android:layout_height="wrap_content"
+            android:weightSum="2"
+            android:orientation="horizontal">
             <Button
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Upload To database"
-                android:id="@+id/DatabaseButton"/>
+                android:textColor="@android:color/holo_green_dark"
+                android:id="@+id/ParentChoreToDOButton"
+                android:text="@string/IncompleteChores"
+                android:enabled="false"
+                android:layout_weight="1"/>
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_green_dark"
+                android:id="@+id/ParentChoreAcceptedButton"
+                android:text="@string/AcceptedChores"
+                android:layout_weight="1"/>
         </LinearLayout>
-    </ScrollView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_green_dark"
+                android:id="@+id/ParentChoreAwaitingButton"
+                android:text="@string/AwaitingApproval"
+                android:layout_weight="1"/>
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_green_dark"
+                android:id="@+id/ParentChoreCompletedButton"
+                android:text="@string/CompletedChores"
+                android:layout_weight="1"/>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/ParentChoresCycleButtons"
+        android:id="@+id/ParentChoreDeleteCompletedHolder">
+    <TextView
+        android:id="@+id/Textbox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ParentChoresCycleButtons"
+        android:text="@string/IncompleteChores"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/DeleteAllCompleted"
+            android:textColor="@android:color/holo_green_dark"
+            android:visibility="gone"
+            android:id="@+id/DeleteAllCompletedChores"/>
+        </LinearLayout>
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/navigation"
+        android:id="@+id/ParentChoreToDoList"
+        android:layout_below="@id/ParentChoreDeleteCompletedHolder">
+    </ListView>
+
+
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="10dp"
+        android:backgroundTint="@android:color/holo_green_dark"
         android:layout_marginRight="10dp"
         android:src="@drawable/addicon"
         android:id="@+id/AddChoreButton"

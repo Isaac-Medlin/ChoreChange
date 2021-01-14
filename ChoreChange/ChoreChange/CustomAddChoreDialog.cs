@@ -31,8 +31,8 @@ namespace ChoreChange
         TextView aesterikWarningText;
 
         //For the loading screen 
-        TextView loadingText;
-        ProgressBar loadingBar;
+       // TextView loadingText;
+        //ProgressBar loadingBar;
         public CustomAddChoreDialog(Activity activity, ParentAccount creator) : base(activity)
         {
             m_creator = creator;
@@ -72,47 +72,30 @@ namespace ChoreChange
             submitButton.Click += delegate
             {
                 completedForm = CheckFields();
-                Console.WriteLine("is it completed: {0}", completedForm);
                 if (completedForm)
                 {
                     string name = nameEntry.Text;
                     string description = descriptionEntry.Text;
                     float payout = float.Parse(payoutEntry.Text);
                     string pic = null;
-                    bool choreAdded = true;
-                    int id = m_creator.id;
+                    bool choreAdded;
+                    ParentDatabaseQueries database = new ParentDatabaseQueries(m_creator);
 
-                    ConnectionString conn = new ConnectionString();
-                    string queryString = null;
-                    if (pic == null)
-                    {
-                        queryString =
-                                "INSERT INTO dbo.Chores Values(" + m_creator.id + " , '" + name + "' , '" + description + "' , " + payout + " , " + (int)Chore.choreStatus.INCOMPLETE + " , null ) ";
-                    }
-                    else
-                    {
-                        //query string once picture integration is figured out
-                    }
-                    
-                    using (SqlConnection connection = new SqlConnection(conn.connectionString))
-                    {
-                        SqlCommand command = new SqlCommand(queryString, connection);
-                        connection.Open();
-                        try
-                        {
-                            command.ExecuteNonQuery();
-                        }
-                        catch (Exception exc)
-                        {
-                            Console.WriteLine("{0}", exc.Message);
-                            choreAdded = false;
-                        }
-                        connection.Close();
-                    }
+                    choreAdded = database.AddChore(name, description, payout);
+                    database.GetChores();
 
-                    //toast to let user know if creation was a faiilure of success
+                    //base.Hide();
+                    //ProgressDialog loadingscreen = new ProgressDialog(m_activity);
+                    //loadingscreen.Indeterminate = true;
+                    //loadingscreen.SetProgressStyle(Android.App.ProgressDialogStyle.Spinner);
+                    //loadingscreen.SetMessage("Creating Chore... Please Wait...");
+                    //loadingscreen.SetCancelable(false);
+                    //loadingscreen.Show();
+
                     if (choreAdded)
+                    {
                         Toast.MakeText(m_activity, Resource.String.ChoreAdded, ToastLength.Short).Show();
+                    }
                     else
                         Toast.MakeText(m_activity, Resource.String.ChoreAddedFailure, ToastLength.Short).Show();
                     base.Dismiss();

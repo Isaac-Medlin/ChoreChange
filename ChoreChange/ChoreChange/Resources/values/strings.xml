@@ -13,5 +13,9 @@
   <string name="SubmitText">Submit</string>
   <string name="ChoreAdded">Chore Added</string>
   <string name="ChoreAddedFailure">Chore Creation failed</string>
-  <string name="AddChoreLoading">Creating Chore... Please Wait...</string>
+  <string name="IncompleteChores">Incompleted Chores</string>
+  <string name="AcceptedChores">Accepted Chores</string>
+  <string name="AwaitingApproval">Awaiting Approval</string>
+  <string name="CompletedChores">Completed Chores</string>
+  <string name="DeleteAllCompleted">Delete All Completed Chores</string>
 </resources>
