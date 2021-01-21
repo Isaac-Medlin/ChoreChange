@@ -59,12 +59,13 @@
         android:orientation="vertical"
         android:layout_below="@id/ParentChoresCycleButtons"
         android:id="@+id/ParentChoreDeleteCompletedHolder">
-    <TextView
-        android:id="@+id/Textbox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ParentChoresCycleButtons"
-        android:text="@string/IncompleteChores"/>
+        <TextView
+            android:id="@+id/Textbox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:layout_below="@id/ParentChoresCycleButtons"
+            android:text="@string/IncompleteChores"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -72,7 +73,7 @@
             android:textColor="@android:color/holo_green_dark"
             android:visibility="gone"
             android:id="@+id/DeleteAllCompletedChores"/>
-        </LinearLayout>
+    </LinearLayout>
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -63,13 +63,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Account.cs" />
+    <Compile Include="ChildAccount.cs" />
+    <Compile Include="ChildListAdapter.cs" />
     <Compile Include="Chore.cs" />
     <Compile Include="ChoreListAdapter.cs" />
     <Compile Include="ConnectionString.cs" />
+    <Compile Include="CustomAddChildDialog.cs" />
     <Compile Include="CustomAddChoreDialog.cs" />
+    <Compile Include="CustomParentChildListClickDialog.cs" />
+    <Compile Include="CustomParentChoreListClickDialog.cs" />
+    <Compile Include="ParentChildrenActivity.cs" />
+    <Compile Include="ParentChoresActivity.cs" />
     <Compile Include="ParentDatabaseQueries.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="ParentAccount.cs" />
+    <Compile Include="ParentSettingsActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -108,6 +116,9 @@
     <AndroidResource Include="Resources\drawable\Chores.ico" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>12.0.3</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.3" />
     <PackageReference Include="Xamarin.Android.Support.Core.Utils" Version="28.0.0.3" />
     <PackageReference Include="Xamarin.Android.Support.CustomTabs" Version="28.0.0.3" />
@@ -137,6 +148,34 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\CustomChoreList.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\ParentChoreClickDialog.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\ParentChildren.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\ParentSettings.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\AddChildDialog.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\CustomChildList.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\ParentChildClickDialog.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

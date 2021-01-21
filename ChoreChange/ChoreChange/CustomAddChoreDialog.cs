@@ -77,7 +77,7 @@ namespace ChoreChange
                     string name = nameEntry.Text;
                     string description = descriptionEntry.Text;
                     float payout = float.Parse(payoutEntry.Text);
-                    string pic = null;
+                    //string pic = null;
                     bool choreAdded;
                     ParentDatabaseQueries database = new ParentDatabaseQueries(m_creator);
 

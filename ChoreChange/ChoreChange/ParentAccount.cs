@@ -9,6 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Java.Interop;
 
 namespace ChoreChange
 {
@@ -21,6 +22,7 @@ namespace ChoreChange
             m_acceptedChores = new List<Chore>();
             m_awaitingChores = new List<Chore>();
             m_completeChores = new List<Chore>();
+            m_children = new List<ChildAccount>();
         }
 
         //functions for inclomplete chores
@@ -59,10 +61,20 @@ namespace ChoreChange
         {
             get { return m_completeChores; }
         }
+        //functions for children
+        public void AddChild(ChildAccount child)
+        {
+            m_children.Add(child);
+        }
+        public List<ChildAccount> Children
+        {
+            get { return m_children; }
+        }
+
         List<Chore> m_incompleteChores;
         List<Chore> m_acceptedChores;
         List<Chore> m_awaitingChores;
         List<Chore> m_completeChores;
-
+        List<ChildAccount> m_children;
     }
 }

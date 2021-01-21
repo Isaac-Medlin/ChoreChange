@@ -18,4 +18,14 @@
   <string name="AwaitingApproval">Awaiting Approval</string>
   <string name="CompletedChores">Completed Chores</string>
   <string name="DeleteAllCompleted">Delete All Completed Chores</string>
+  <string name="ChoreDeleted">Chore Deletion Successful</string>
+  <string name="ChoreDeletedFailed">Chore Deletion Failed</string>
+  <string name="AllDeletedSuccess">All Completed Chores Deleted</string>
+  <string name="AllDeletedFailed">Deletion Failed</string>
+  <string name="CompletedChoresEmpty">No Chores To Delete</string>
+  <string name="ParentAddChild">Add Child</string>
+  <string name="ChildNameDialog">Enter Childs Username:*</string>
+  <string name="AddChildError">Child Username Doesn\'t Exist</string>
+  <string name="Children">Children</string>
+  <string name="Remove">Remove</string>
 </resources>
