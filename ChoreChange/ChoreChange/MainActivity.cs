@@ -22,10 +22,14 @@ namespace ChoreChange
         {
             base.OnCreate(savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
-            ParentAccount parent = new ParentAccount(1, "Isaac", "Where did you go to highschool?");
-            Intent parentChore = new Intent(this, typeof(ParentChoresActivity));
-            parentChore.PutExtra("account", JsonConvert.SerializeObject(parent));
-            StartActivity(parentChore);
+            //ParentAccount parent = new ParentAccount(1, "Isaac", "Where did you go to highschool?");
+            //Intent parentChore = new Intent(this, typeof(ParentChoresActivity));
+            //parentChore.PutExtra("account", JsonConvert.SerializeObject(parent));
+            //StartActivity(parentChore);
+            ChildAccount child = new ChildAccount(1, "mitch", "Favorite movie", 70, 1);
+            Intent childChore = new Intent(this, typeof(ChildChoreActivity));
+            childChore.PutExtra("account", JsonConvert.SerializeObject(child));
+            StartActivity(childChore);
         }
     }
 }

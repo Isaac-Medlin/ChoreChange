@@ -7,10 +7,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal">
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Settings Page"/>
+        android:orientation="vertical"
+        android:id="@+id/ParentSettingsLinearLayout">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/SettingsChangeDisplay"
+            android:id="@+id/ParentSettingsChangeName"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ChangePassword"
+            android:id="@+id/ParentSettingsChangePassword"/>
+        </LinearLayout>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"

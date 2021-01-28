@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/ChildChoresCycleButtons">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2"
+            android:orientation="horizontal">
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_green_dark"
+                android:id="@+id/ChildChoreToDOButton"
+                android:text="@string/IncompleteChores"
+                android:enabled="false"
+                android:layout_weight="1"/>
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_green_dark"
+                android:id="@+id/ChildChoreAcceptedButton"
+                android:text="@string/AcceptedChores"
+                android:layout_weight="1"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_green_dark"
+                android:id="@+id/ChildChoreAwaitingButton"
+                android:text="@string/AwaitingApproval"
+                android:layout_weight="1"/>
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_green_dark"
+                android:id="@+id/ChildChoreCompletedButton"
+                android:text="@string/CompletedChores"
+                android:layout_weight="1"/>
+        </LinearLayout>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/Textbox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dp"
+        android:textColor="@android:color/black"
+        android:layout_below="@id/ChildChoresCycleButtons"
+        android:text="@string/IncompleteChores"/>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/navigation"
+        android:id="@+id/ChildChoreToDoList"
+        android:layout_below="@id/Textbox">
+    </ListView>
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="0dp"
+        android:layout_marginStart="0dp"
+        android:background="?android:attr/windowBackground"
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/child_navigation" />
+
+</RelativeLayout>

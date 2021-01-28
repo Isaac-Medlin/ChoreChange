@@ -4,6 +4,7 @@
   <string name="NavChores">Chores</string>
   <string name="NavChildren">Children</string>
   <string name="NavSettings">Settings</string>
+  <string name="NavBank">Bank</string>
   <string name="AddChoreDialog">Add Chore</string>
   <string name="ChoreNameDialog">Chore Name:*</string>
   <string name="ChoreDescriptionDialog">Description:*</string>
@@ -28,4 +29,8 @@
   <string name="AddChildError">Child Username Doesn\'t Exist</string>
   <string name="Children">Children</string>
   <string name="Remove">Remove</string>
+  <string name="SettingsChangeDisplay">Change Display Name</string>
+  <string name="ChangePassword">Change Password</string>
+  <string name="CashoutHistory">Cashout History</string>
+  <string name="Close">Close</string>
 </resources>

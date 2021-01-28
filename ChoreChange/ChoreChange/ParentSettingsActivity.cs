@@ -18,6 +18,8 @@ namespace ChoreChange
     public class ParentSettingsActivity : Activity, BottomNavigationView.IOnNavigationItemSelectedListener
     {
         BottomNavigationView navigation;
+        Button changeName;
+        Button changePassword;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -28,6 +30,17 @@ namespace ChoreChange
             // Create your application here
             Intent intent = this.Intent;
             ParentAccount parent = JsonConvert.DeserializeObject<ParentAccount>(intent.GetStringExtra("account"));
+            changeName = FindViewById<Button>(Resource.Id.ParentSettingsChangeName);
+            changePassword = FindViewById<Button>(Resource.Id.ParentSettingsChangePassword);
+
+            changeName.Click += delegate
+            {
+
+            };
+            changePassword.Click += delegate
+            {
+
+            };
         }
         public bool OnNavigationItemSelected(IMenuItem item)
         {

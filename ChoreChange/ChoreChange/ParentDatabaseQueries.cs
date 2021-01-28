@@ -45,9 +45,38 @@ namespace ChoreChange
                 connection.Close();
             }
         }
+
+        public void GetCashoutHistory()
+        {
+            m_parent.Cashouts.Clear();
+
+            string queryString = "SELECT * FROM dbo.CashOutHistory WHERE ParentID=" + m_parent.id;
+            using (SqlConnection connection = new SqlConnection(m_connection.connectionString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    string childName;
+                    float cashoutAmount;
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            childName = (string)reader["childName"];
+                            cashoutAmount = (float)reader.GetDouble("cashoutAmount");
+                            m_parent.AddCashout(new Cashouts(childName, cashoutAmount));
+                        }
+                        reader.NextResult();
+                    }
+                    connection.Close();
+                }
+            }
+        }
+
         /****************************************************************************************************************
-         * Purpose: Returns all children under a parent account
-         *****************************************************************************************************************/
+* Purpose: Returns all children under a parent account
+*****************************************************************************************************************/
         public void GetChildren()
         {
             m_parent.Children.Clear();
@@ -71,7 +100,7 @@ namespace ChoreChange
                             displayName = (string)reader["DisplayName"];
                             securityQuestion = (string)reader["SecurityQuestion"];
                             bank = (float)reader.GetDouble("Bank");
-                            m_parent.AddChild(new ChildAccount(id, displayName, securityQuestion, bank));
+                            m_parent.AddChild(new ChildAccount(id, displayName, securityQuestion, bank, m_parent.id));
                         }
                         reader.NextResult();
                     }

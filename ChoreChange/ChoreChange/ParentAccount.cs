@@ -23,6 +23,7 @@ namespace ChoreChange
             m_awaitingChores = new List<Chore>();
             m_completeChores = new List<Chore>();
             m_children = new List<ChildAccount>();
+            m_cashouts = new List<Cashouts>();
         }
 
         //functions for inclomplete chores
@@ -70,11 +71,20 @@ namespace ChoreChange
         {
             get { return m_children; }
         }
-
+        //functions for cashout history
+        public void AddCashout(Cashouts cashout)
+        {
+            m_cashouts.Add(cashout);
+        }
+        public List<Cashouts> Cashouts
+        {
+            get { return m_cashouts;  }
+        }
         List<Chore> m_incompleteChores;
         List<Chore> m_acceptedChores;
         List<Chore> m_awaitingChores;
         List<Chore> m_completeChores;
         List<ChildAccount> m_children;
+        List<Cashouts> m_cashouts;
     }
 }

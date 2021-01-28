@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:id="@+id/Child_Navigation_Bank"
+        android:icon="@drawable/Safe"
+        android:title="@string/NavBank"/>
+  <item
+        android:id="@+id/Child_Navigation_Chores"
+        android:icon="@drawable/chores"
+        android:title="@string/NavChores"/>
+  <item
+        android:id="@+id/Child_Navigation_Settings"
+        android:icon="@drawable/settings"
+        android:title="@string/NavSettings"/>
+</menu>

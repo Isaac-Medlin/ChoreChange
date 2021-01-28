@@ -63,6 +63,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Account.cs" />
+    <Compile Include="ChildChoreActivity.cs" />
+    <Compile Include="ChildDatabaseQueries.cs" />
+    <Compile Include="CustomCashOutHistoryDialog.cs" />
+    <Compile Include="CashoutListAdapter.cs" />
+    <Compile Include="Cashouts.cs" />
     <Compile Include="ChildAccount.cs" />
     <Compile Include="ChildListAdapter.cs" />
     <Compile Include="Chore.cs" />
@@ -70,6 +75,7 @@
     <Compile Include="ConnectionString.cs" />
     <Compile Include="CustomAddChildDialog.cs" />
     <Compile Include="CustomAddChoreDialog.cs" />
+    <Compile Include="CustomChildChoreClickDialog.cs" />
     <Compile Include="CustomParentChildListClickDialog.cs" />
     <Compile Include="CustomParentChoreListClickDialog.cs" />
     <Compile Include="ParentChildrenActivity.cs" />
@@ -176,6 +182,34 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\ParentChildClickDialog.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\CashoutHistoryDialog.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\CustomCashoutList.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\menu\child_navigation.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Safe.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\ChildChore.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\ChildChoreClickDialog.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

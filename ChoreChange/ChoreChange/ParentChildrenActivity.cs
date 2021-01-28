@@ -19,6 +19,7 @@ namespace ChoreChange
     {
         BottomNavigationView navigation;
         Button addChoreButton;
+        Button viewChasoutHistory;
         ListView childList;
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -49,6 +50,13 @@ namespace ChoreChange
             childList.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs itemClicked)
             {
                 CustomParentChildListClickDialog diag = new CustomParentChildListClickDialog(this, parent, parent.Children, itemClicked.Position, adapter);
+                diag.Window.SetSoftInputMode(SoftInput.AdjustResize);
+                diag.Show();
+            };
+            viewChasoutHistory = FindViewById<Button>(Resource.Id.ParentCashoutHistory);
+            viewChasoutHistory.Click += delegate
+            {
+                CustomCashOutHistoryDialog diag = new CustomCashOutHistoryDialog(this, parent);
                 diag.Window.SetSoftInputMode(SoftInput.AdjustResize);
                 diag.Show();
             };
