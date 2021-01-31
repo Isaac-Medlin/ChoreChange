@@ -21,6 +21,98 @@ namespace ChoreChange
             m_child = child;
             m_connection = new ConnectionString();
         }
+
+        //cashouts a child, reseting thier amount to 0 and adding it into the cashout history
+        public bool Cashout()
+        {
+            bool success = true;
+            string queryString = "INSERT INTO dbo.CashOutHistory Values(" + m_child.id + "," + m_child.ParentID +",'" + m_child.displayName + "'," + m_child.Bank + ")";
+            using (SqlConnection connection = new SqlConnection(m_connection.connectionString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                connection.Open();
+                try
+                {
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception exc)
+                {
+                    success = false;
+                    Console.WriteLine("{0}", exc.Message);
+                }
+                connection.Close();
+            }
+            if(success)
+            {
+                queryString = "UPDATE dbo.ChildAccounts SET Bank= " + 0 + " WHERE ID=" + m_child.id;
+                using (SqlConnection connection = new SqlConnection(m_connection.connectionString))
+                {
+                    SqlCommand command = new SqlCommand(queryString, connection);
+                    connection.Open();
+                    try
+                    {
+                        command.ExecuteNonQuery();
+                    }
+                    catch (Exception exc)
+                    {
+                        success = false;
+                        Console.WriteLine("{0}", exc.Message);
+                    }
+                    connection.Close();
+                }
+            }
+            return success;
+        }
+        //gets cashout history for a child account
+        public void GetCashoutHistory()
+        {
+            m_child.Cashouts.Clear();
+
+            string queryString = "SELECT * FROM dbo.CashOutHistory WHERE ChildID=" + m_child.id;
+            using (SqlConnection connection = new SqlConnection(m_connection.connectionString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    string childName;
+                    float cashoutAmount;
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            childName = (string)reader["childName"];
+                            cashoutAmount = (float)reader.GetDouble("cashoutAmount");
+                            m_child.AddCashout(new Cashouts(childName, cashoutAmount));
+                        }
+                        reader.NextResult();
+                    }
+                    connection.Close();
+                }
+            }
+        }
+        //gets bank amount for the child
+        public void GetBankAmount()
+        {
+            string queryString = "SELECT Bank FROM dbo.ChildAccounts WHERE ID =" + m_child.id;
+            using (SqlConnection connection = new SqlConnection(m_connection.connectionString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            m_child.Bank = (float)reader.GetDouble("Bank");
+                        }
+                        reader.NextResult();
+                    }
+                }
+                connection.Close();
+            }
+        }
         //Gets parents name from a chore
         public string GetParentsName(int parentID)
         {
@@ -32,7 +124,6 @@ namespace ChoreChange
                 connection.Open();
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    //picture pic
                     if (reader.HasRows)
                     {
                         while (reader.Read())

@@ -75,12 +75,12 @@ namespace ChoreChange
         }
 
         /****************************************************************************************************************
-* Purpose: Returns all children under a parent account
-*****************************************************************************************************************/
+        * Purpose: Returns all children under a parent account
+        *****************************************************************************************************************/
         public void GetChildren()
         {
             m_parent.Children.Clear();
-            
+
             string queryString = "SELECT * FROM dbo.ChildAccounts WHERE ParentID=" + m_parent.id;
             using (SqlConnection connection = new SqlConnection(m_connection.connectionString))
             {
@@ -224,7 +224,7 @@ namespace ChoreChange
         {
             string queryString;
             //if chore was approved updating the childs bank
-            if(status == Chore.choreStatus.COMPLETED)
+            if (status == Chore.choreStatus.COMPLETED)
             {
                 float bank = 0;
                 queryString = "SELECT Bank FROM dbo.ChildAccounts WHERE ID=" + chore.CompletedID;
@@ -264,8 +264,8 @@ namespace ChoreChange
                 }
             }
             //change chore status
-            queryString = "UPDATE dbo.Chores SET Status= " + (int)status + " WHERE ChoreID= "+ chore.id;
-            
+            queryString = "UPDATE dbo.Chores SET Status= " + (int)status + " WHERE ChoreID= " + chore.id;
+
             using (SqlConnection connection = new SqlConnection(m_connection.connectionString))
             {
                 SqlCommand command = new SqlCommand(queryString, connection);
@@ -351,11 +351,11 @@ namespace ChoreChange
                                 choreName = (string)reader["Name"];
                                 choreDescription = (string)reader["Description"];
                                 payout = (float)reader.GetDouble("Payout");
-                                Chore.choreStatus choreStatus = (Chore.choreStatus)reader["Status"];  
-                                
-                                if(choreStatus != Chore.choreStatus.INCOMPLETE)
+                                Chore.choreStatus choreStatus = (Chore.choreStatus)reader["Status"];
+
+                                if (choreStatus != Chore.choreStatus.INCOMPLETE)
                                     completedID = (int)reader["CompletedID"];
-                               
+
                                 switch (choreStatus)
                                 {
                                     case Chore.choreStatus.INCOMPLETE:

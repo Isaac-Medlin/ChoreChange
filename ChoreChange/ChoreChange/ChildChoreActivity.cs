@@ -130,16 +130,22 @@ namespace ChoreChange
         public bool OnNavigationItemSelected(IMenuItem item)
         {
             Intent intent = this.Intent;
-            ParentAccount parent = JsonConvert.DeserializeObject<ParentAccount>(intent.GetStringExtra("account"));
+            ChildAccount childAccount = JsonConvert.DeserializeObject<ChildAccount>(intent.GetStringExtra("account"));
 
             switch (item.ItemId)
             {
                 case Resource.Id.Child_Navigation_Bank:
+                    Intent childBank = new Intent(this, typeof(ChildBankActivity));
+                    childBank.PutExtra("account", JsonConvert.SerializeObject(childAccount));
+                    StartActivity(childBank);
                     return true;
                 case Resource.Id.Child_Navigation_Chores:
                     //current page
                     return true;
                 case Resource.Id.Child_Navigation_Settings:
+                    Intent childSettings = new Intent(this, typeof(ChildSettingsActivity));
+                    childSettings.PutExtra("account", JsonConvert.SerializeObject(childAccount));
+                    StartActivity(childSettings);
                     return true;
             }
             return false;

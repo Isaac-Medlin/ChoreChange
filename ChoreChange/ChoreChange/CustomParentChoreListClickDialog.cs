@@ -178,7 +178,7 @@ namespace ChoreChange
                 base.Dismiss();
             };
 
-            acceptOrDelete.Click += delegate
+            acceptOrDelete.Click += delegate    
             {
                 //update childs bank
                 database.ChangeChoreStatus(m_chores[m_chorePosition], Chore.choreStatus.COMPLETED);

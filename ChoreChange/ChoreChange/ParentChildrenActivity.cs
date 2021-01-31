@@ -56,7 +56,7 @@ namespace ChoreChange
             viewChasoutHistory = FindViewById<Button>(Resource.Id.ParentCashoutHistory);
             viewChasoutHistory.Click += delegate
             {
-                CustomCashOutHistoryDialog diag = new CustomCashOutHistoryDialog(this, parent);
+                CustomParentCashOutHistoryDialog diag = new CustomParentCashOutHistoryDialog(this, parent);
                 diag.Window.SetSoftInputMode(SoftInput.AdjustResize);
                 diag.Show();
             };

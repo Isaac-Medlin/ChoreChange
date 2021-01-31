@@ -63,9 +63,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Account.cs" />
+    <Compile Include="ChildBankActivity.cs" />
     <Compile Include="ChildChoreActivity.cs" />
     <Compile Include="ChildDatabaseQueries.cs" />
-    <Compile Include="CustomCashOutHistoryDialog.cs" />
+    <Compile Include="ChildSettingsActivity.cs" />
+    <Compile Include="CustomChildCashoutHistoryDialog.cs" />
+    <Compile Include="CustomParentCashOutHistoryDialog.cs" />
     <Compile Include="CashoutListAdapter.cs" />
     <Compile Include="Cashouts.cs" />
     <Compile Include="ChildAccount.cs" />
@@ -210,6 +213,16 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\ChildChoreClickDialog.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\ChildBank.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\ChildSettings.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

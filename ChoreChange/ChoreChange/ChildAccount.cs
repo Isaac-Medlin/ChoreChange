@@ -29,6 +29,7 @@ namespace ChoreChange
         public float Bank
         {
             get { return m_bank; }
+            set { m_bank = value; }
         }
         public int ParentID
         {

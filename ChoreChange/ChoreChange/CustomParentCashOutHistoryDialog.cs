@@ -12,12 +12,11 @@ using Android.Widget;
 
 namespace ChoreChange
 {
-    class CustomCashOutHistoryDialog : Dialog
+    class CustomParentCashOutHistoryDialog : Dialog
     {
         Button cancelButton;
-
         ListView cashoutHistory;
-        public CustomCashOutHistoryDialog(Activity activity, ParentAccount creator) : base(activity)
+        public CustomParentCashOutHistoryDialog(Activity activity, ParentAccount creator) : base(activity)
         {
             m_creator = creator;
             m_activity = activity;

@@ -33,4 +33,9 @@
   <string name="ChangePassword">Change Password</string>
   <string name="CashoutHistory">Cashout History</string>
   <string name="Close">Close</string>
+  <string name="BankAmount">You have earned:</string>
+  <string name="Cashout">Cashout</string>
+  <string name="CashoutSuccessful">Cashout was successful</string>
+  <string name="CashoutFailed">Cashout Failed</string>
+  <string name="InvalidAmountCashout">Cant cashout with $0</string>
 </resources>
