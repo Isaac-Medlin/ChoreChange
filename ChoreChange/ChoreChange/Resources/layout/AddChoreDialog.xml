@@ -1,93 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingBottom="10dp"
-    android:paddingLeft="10dp"
-    android:paddingTop="10dp"
-    android:paddingRight="10dp">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="@string/AddChoreDialog"
-        android:textStyle="bold"
-        android:textSize="20dp"
-        android:textColor="@android:color/black"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:text="@string/ChoreNameDialog"
-        android:id="@+id/ChoreNameDialogText"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/black"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:id="@+id/ChoreNameTextEntry"
-        android:layout_height="50dp"
-        android:inputType="text"
-        android:backgroundTint="@android:color/black"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:text="@string/ChoreDescriptionDialog"
-        android:id="@+id/ChoreDescriptionDialogText"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/black"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:id="@+id/ChoreDescriptionTextEntry"
-        android:inputType="text"
-        android:backgroundTint="@android:color/black"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:text="@string/ChorePayoutDialog"
-        android:id="@+id/ChorePayoutDialogText"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/black"/>
+    android:layout_height="wrap_content">
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/AddChoreDialog"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:textColor="@android:color/black"/>
         <TextView
             android:layout_width="wrap_content"
+            android:text="@string/ChoreNameDialog"
+            android:id="@+id/ChoreNameDialogText"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:id="@+id/ChoreMoneyDialogText"
-            android:text="@string/MoneySymbol"
+            android:textColor="@android:color/black"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:id="@+id/ChoreNameTextEntry"
+            android:layout_height="50dp"
+            android:inputType="text"
+            android:backgroundTint="@android:color/black"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="@string/ChoreDescriptionDialog"
+            android:id="@+id/ChoreDescriptionDialogText"
+            android:layout_height="wrap_content"
             android:textColor="@android:color/black"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:id="@+id/ChorePayoutFloatEntry"
-            android:inputType="numberDecimal"
+            android:id="@+id/ChoreDescriptionTextEntry"
+            android:inputType="text"
             android:backgroundTint="@android:color/black"/>
-    </LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:id="@+id/Chore_Creation_Aesterik_Warning_Text"
-        android:text="@string/Chore_Creation_Aesterik_Warning"
-        android:textColor="@android:color/black"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal">
-        <Button
+        <TextView
             android:layout_width="wrap_content"
+            android:text="@string/ChorePayoutDialog"
+            android:id="@+id/ChorePayoutDialogText"
             android:layout_height="wrap_content"
-            android:id="@+id/ChoreCreationCancelButton"
-            android:text="@android:string/cancel"
-            android:textColor="@android:color/holo_red_light"/>
+            android:textColor="@android:color/black"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:id="@+id/ChoreMoneyDialogText"
+                android:text="@string/MoneySymbol"
+                android:textColor="@android:color/black"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/ChorePayoutFloatEntry"
+                android:inputType="numberDecimal"
+                android:backgroundTint="@android:color/black"/>
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Picture"
+            android:textColor="@android:color/black"/>
+        <ImageView
+            android:id="@+id/ReturnedPicture"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:contentDescription="@string/Picture"/>
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/ChoreSubmitCreationButton"
-            android:text="@string/SubmitText"
-            android:textColor="@android:color/holo_green_dark"/>
+            android:textColor="@android:color/holo_green_dark"
+            android:id="@+id/ChoreAddPicture"
+            android:text="@string/AddPicture"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:id="@+id/Chore_Creation_Aesterik_Warning_Text"
+            android:text="@string/Chore_Creation_Aesterik_Warning"
+            android:textColor="@android:color/black"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ChoreCreationCancelButton"
+                android:text="@android:string/cancel"
+                android:textColor="@android:color/holo_red_light"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ChoreSubmitCreationButton"
+                android:text="@string/SubmitText"
+                android:textColor="@android:color/holo_green_dark"/>
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</ScrollView>

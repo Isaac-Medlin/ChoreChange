@@ -38,4 +38,6 @@
   <string name="CashoutSuccessful">Cashout was successful</string>
   <string name="CashoutFailed">Cashout Failed</string>
   <string name="InvalidAmountCashout">Cant cashout with $0</string>
+  <string name="Picture">Picture:</string>
+  <string name="AddPicture">Add Picture</string>
 </resources>

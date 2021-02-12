@@ -1,15 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
+using Android;
 using Android.App;
 using Android.Content;
+using Android.Content.PM;
+using Android.Graphics;
+using Android.Graphics.Drawables;
 using Android.OS;
+using Android.Provider;
 using Android.Runtime;
+using Android.Support.V4.App;
+using Android.Support.V4.Content;
 using Android.Views;
 using Android.Widget;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
+using Plugin.Media;
 
 namespace ChoreChange
 {
@@ -17,7 +29,7 @@ namespace ChoreChange
     {
         Button submitButton;
         Button cancelButton;
-
+        Button addPicture;
         //Finding entry fields for dialog
         EditText nameEntry;
         EditText descriptionEntry;
@@ -30,6 +42,16 @@ namespace ChoreChange
         TextView moneyText;
         TextView aesterikWarningText;
 
+        ImageView image;
+
+
+
+        readonly string[] permissionGroup =
+        {
+            Manifest.Permission.ReadExternalStorage,
+            Manifest.Permission.WriteExternalStorage,
+            Manifest.Permission.Camera
+        };
         //For the loading screen 
        // TextView loadingText;
         //ProgressBar loadingBar;
@@ -51,6 +73,7 @@ namespace ChoreChange
             //Finding buttons for dialog
             submitButton = FindViewById<Button>(Resource.Id.ChoreSubmitCreationButton);
             cancelButton = FindViewById<Button>(Resource.Id.ChoreCreationCancelButton);
+            addPicture = FindViewById<Button>(Resource.Id.ChoreAddPicture);
 
             //Finding entry fields for dialog
             nameEntry = FindViewById<EditText>(Resource.Id.ChoreNameTextEntry);
@@ -64,11 +87,17 @@ namespace ChoreChange
             moneyText = FindViewById<TextView>(Resource.Id.ChoreMoneyDialogText);
             aesterikWarningText = FindViewById<TextView>(Resource.Id.Chore_Creation_Aesterik_Warning_Text);
 
+            image = FindViewById<ImageView>(Resource.Id.ReturnedPicture);
+
+            m_activity.RequestPermissions(permissionGroup, 0);
             cancelButton.Click += delegate
             {
                 base.Dismiss();
             };
-
+            addPicture.Click += delegate
+            {
+                TakePhoto();
+            };
             submitButton.Click += delegate
             {
                 completedForm = CheckFields();
@@ -77,20 +106,15 @@ namespace ChoreChange
                     string name = nameEntry.Text;
                     string description = descriptionEntry.Text;
                     float payout = float.Parse(payoutEntry.Text);
-                    //string pic = null;
+
                     bool choreAdded;
                     ParentDatabaseQueries database = new ParentDatabaseQueries(m_creator);
-
-                    choreAdded = database.AddChore(name, description, payout);
+                    if (m_inputStream != null)
+                    {
+                        Upload(m_inputStream);
+                    }
+                    choreAdded = database.AddChore(name, description, payout, URL);
                     database.GetChores();
-
-                    //base.Hide();
-                    //ProgressDialog loadingscreen = new ProgressDialog(m_activity);
-                    //loadingscreen.Indeterminate = true;
-                    //loadingscreen.SetProgressStyle(Android.App.ProgressDialogStyle.Spinner);
-                    //loadingscreen.SetMessage("Creating Chore... Please Wait...");
-                    //loadingscreen.SetCancelable(false);
-                    //loadingscreen.Show();
 
                     if (choreAdded)
                     {
@@ -103,39 +127,55 @@ namespace ChoreChange
             };
 
         }
-        /**************************************************************************************************
-         * Purpose, make everything invisible and display a "loading screen"
-         **************************************************************************************************/
-        //private void Loading()
-        //{
-        //    //Used to make everything invisible for loading screen
-        //    nameEntry = FindViewById<EditText>(Resource.Id.ChoreNameTextEntry);
-        //    descriptionEntry = FindViewById<EditText>(Resource.Id.ChoreDescriptionTextEntry);
-        //    payoutEntry = FindViewById<EditText>(Resource.Id.ChorePayoutFloatEntry);
+        private async void Upload(Stream stream)
+        {
+            ConnectionString conn = new ConnectionString();
+            try
+            {
+                CloudStorageAccount account = CloudStorageAccount.Parse(conn.storageConnString);
+                CloudBlobClient client = account.CreateCloudBlobClient();
+                CloudBlobContainer container = client.GetContainerReference("images");
+                //await container.CreateIfNotExistsAsync();
+                string name = Guid.NewGuid().ToString();
+                CloudBlockBlob blockBlob = container.GetBlockBlobReference($"{name}.png");
+                blockBlob.Properties.ContentType = "image/png";
+                URL = blockBlob.Uri.OriginalString;
+                await blockBlob.UploadFromStreamAsync(stream);
+                //Toast.MakeText(m_activity, "Image uploaded to Blob Storage Successfully!", ToastLength.Short).Show();                
+            }
+            catch (Exception e)
+            {
+                Toast.MakeText(m_activity, "" + e.ToString(), ToastLength.Short);
+            }
+        }
+
+        async void TakePhoto()
+        {
+            await CrossMedia.Current.Initialize();
+            var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
+            {
+                PhotoSize = Plugin.Media.Abstractions.PhotoSize.Small,
+                CompressionQuality = 40,
+                Name = "chorepic.jpg",
+                Directory = "sample"
+            }) ;
+            image = FindViewById<ImageView>(Resource.Id.ReturnedPicture);
+            if (file == null)
+                return;
+
             
-        //    nameText = FindViewById<TextView>(Resource.Id.ChoreNameDialogText);
-        //    descriptionText = FindViewById<TextView>(Resource.Id.ChoreDescriptionDialogText);
-        //    payoutText = FindViewById<TextView>(Resource.Id.ChorePayoutDialogText);
-        //    moneyText = FindViewById<TextView>(Resource.Id.ChoreMoneyDialogText);
-        //    aesterikWarningText = FindViewById<TextView>(Resource.Id.Chore_Creation_Aesterik_Warning_Text);
+            byte[] imageArray = System.IO.File.ReadAllBytes(file.Path);
+            Bitmap bitmap = BitmapFactory.DecodeByteArray(imageArray, 0, imageArray.Length);
+            image.SetImageBitmap(bitmap);
 
-        //    loadingText = FindViewById<TextView>(Resource.Id.addChoreLoadingMessage);
-        //    loadingBar = FindViewById<ProgressBar>(Resource.Id.AddChoreLoadingBar);
-
-        //    //make everything else invisible
-        //    nameEntry.Visibility = ViewStates.Gone;
-        //    descriptionEntry.Visibility = ViewStates.Gone;
-        //    payoutEntry.Visibility = ViewStates.Gone;
-        //    descriptionText.Visibility = ViewStates.Gone;
-        //    payoutText.Visibility = ViewStates.Gone;
-        //    moneyText.Visibility = ViewStates.Gone;
-        //    aesterikWarningText.Visibility = ViewStates.Gone;
-
-        //    //make loading visible
-        //    loadingBar.Visibility = ViewStates.Visible;
-        //    loadingText.Visibility = ViewStates.Visible;
-        //    Thread.Sleep(1000);
-        //}
+            byte[] bitmapData;
+            using (MemoryStream stream = new MemoryStream())
+            {
+                bitmap.Compress(Bitmap.CompressFormat.Jpeg, 100, stream);
+                bitmapData = stream.ToArray();
+            }
+            m_inputStream = new MemoryStream(bitmapData);
+        }
         /**************************************************************************************************
          * Purpose: Check if all required fields are filled out for a new chore 
          * returns: true or false depending on answer
@@ -203,5 +243,12 @@ namespace ChoreChange
         }
         private ParentAccount m_creator;
         private Activity m_activity;
+        public string URL 
+        {
+            get { return m_url; }
+            set { m_url = value; }
+        }
+        private string m_url;
+        private MemoryStream m_inputStream;
     }
 }

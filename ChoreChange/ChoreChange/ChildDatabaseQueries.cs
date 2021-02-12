@@ -187,6 +187,7 @@ namespace ChoreChange
             float payout;
             int completedID = 0;
             string queryString = "SELECT * FROM dbo.Chores WHERE ParentID=" + m_child.ParentID + " AND Status=" + 0;
+            string picturepath;
 
             using (SqlConnection connection = new SqlConnection(m_connection.connectionString))
             {
@@ -209,7 +210,9 @@ namespace ChoreChange
                             if (choreStatus != Chore.choreStatus.INCOMPLETE)
                                 completedID = (int)reader["CompletedID"];
 
-                            m_child.AddIncompleteChore(new Chore(choreID, parentID, choreName, choreDescription, payout, choreStatus/*, null*/));
+                            picturepath = (string)reader["Picture"];
+
+                            m_child.AddIncompleteChore(new Chore(choreID, parentID, choreName, choreDescription, payout, choreStatus,-1 ,picturepath));
 
                         }
                         reader.NextResult();
@@ -239,17 +242,18 @@ namespace ChoreChange
                                 payout = (float)reader.GetDouble("Payout");
                                 Chore.choreStatus choreStatus = (Chore.choreStatus)reader["Status"];
                                 completedID = (int)reader["CompletedID"];
+                                picturepath = (string)reader["Picture"];
 
                                 switch (ii)
                                 {
                                     case 1:
-                                        m_child.AddAcceptedChore(new Chore(choreID, parentID, choreName, choreDescription, payout, choreStatus, completedID/*, null*/));
+                                        m_child.AddAcceptedChore(new Chore(choreID, parentID, choreName, choreDescription, payout, choreStatus, completedID, picturepath));
                                         break;
                                     case 2:
-                                        m_child.AddAwaitingChore(new Chore(choreID, parentID, choreName, choreDescription, payout, choreStatus, completedID/*, null*/));
+                                        m_child.AddAwaitingChore(new Chore(choreID, parentID, choreName, choreDescription, payout, choreStatus, completedID, picturepath));
                                         break;
                                     case 3:
-                                        m_child.AddCompletedChore(new Chore(choreID, parentID, choreName, choreDescription, payout, choreStatus, completedID/*, null*/));
+                                        m_child.AddCompletedChore(new Chore(choreID, parentID, choreName, choreDescription, payout, choreStatus, completedID, picturepath));
                                         break;
                                     default:
                                         break;

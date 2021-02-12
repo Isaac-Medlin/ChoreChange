@@ -18,6 +18,8 @@ namespace ChoreChange
         TextView description;
         TextView payout;
         TextView child;
+        TextView picTitle;
+        ImageView image;
         Button cancelOrDeny;
         Button acceptOrDelete;
         Button delete;
@@ -66,6 +68,18 @@ namespace ChoreChange
             cancelOrDeny = FindViewById<Button>(Resource.Id.ParentClickCancelButton);
             acceptOrDelete = FindViewById<Button>(Resource.Id.ParentClickConfirmButton);
             delete = FindViewById<Button>(Resource.Id.ParentClickDeleteButton);
+            image = FindViewById<ImageView>(Resource.Id.ParentChorePicture);
+            picTitle = FindViewById<TextView>(Resource.Id.PictureTitle);
+
+            if (m_chores[m_chorePosition].PictureBitmap != null)
+            {
+                picTitle.Visibility = ViewStates.Visible;
+                image.SetImageBitmap(m_chores[m_chorePosition].PictureBitmap);
+            }
+            else
+            {
+                picTitle.Visibility = ViewStates.Gone;
+            }
 
             title.Text = m_chores[m_chorePosition].name;
             description.Text = "Description: " + m_chores[m_chorePosition].description;
@@ -108,7 +122,18 @@ namespace ChoreChange
             acceptOrDelete = FindViewById<Button>(Resource.Id.ParentClickConfirmButton);
             delete = FindViewById<Button>(Resource.Id.ParentClickDeleteButton);
             child = FindViewById<TextView>(Resource.Id.ParentClickChoreChild);
+            image = FindViewById<ImageView>(Resource.Id.ParentChorePicture);
+            picTitle = FindViewById<TextView>(Resource.Id.PictureTitle);
 
+            if (m_chores[m_chorePosition].PictureBitmap != null)
+            {
+                picTitle.Visibility = ViewStates.Visible;
+                image.SetImageBitmap(m_chores[m_chorePosition].PictureBitmap);
+            }
+            else
+            {
+                picTitle.Visibility = ViewStates.Gone;
+            }
             string childName = database.GetChildNameFomChore(m_chores[m_chorePosition].id);
             title.Text = m_chores[m_chorePosition].name;
             description.Text = "Description: " + m_chores[m_chorePosition].description;
@@ -153,6 +178,18 @@ namespace ChoreChange
             acceptOrDelete = FindViewById<Button>(Resource.Id.ParentClickConfirmButton);
             delete = FindViewById<Button>(Resource.Id.ParentClickDeleteButton);
             child = FindViewById<TextView>(Resource.Id.ParentClickChoreChild);
+            image = FindViewById<ImageView>(Resource.Id.ParentChorePicture);
+            picTitle = FindViewById<TextView>(Resource.Id.PictureTitle);
+
+            if (m_chores[m_chorePosition].PictureBitmap != null)
+            {
+                picTitle.Visibility = ViewStates.Visible;
+                image.SetImageBitmap(m_chores[m_chorePosition].PictureBitmap);
+            }
+            else
+            {
+                picTitle.Visibility = ViewStates.Gone;
+            }
 
             string childName = database.GetChildNameFomChore(m_chores[m_chorePosition].id);
             title.Text = m_chores[m_chorePosition].name;
@@ -180,7 +217,6 @@ namespace ChoreChange
 
             acceptOrDelete.Click += delegate    
             {
-                //update childs bank
                 database.ChangeChoreStatus(m_chores[m_chorePosition], Chore.choreStatus.COMPLETED);
                 m_adapter.NotifyDataSetChanged();
                 database.GetChores();
@@ -216,6 +252,18 @@ namespace ChoreChange
             acceptOrDelete = FindViewById<Button>(Resource.Id.ParentClickConfirmButton);
             delete = FindViewById<Button>(Resource.Id.ParentClickDeleteButton);
             child = FindViewById<TextView>(Resource.Id.ParentClickChoreChild);
+            image = FindViewById<ImageView>(Resource.Id.ParentChorePicture);
+            picTitle = FindViewById<TextView>(Resource.Id.PictureTitle);
+
+            if (m_chores[m_chorePosition].PictureBitmap != null)
+            {
+                picTitle.Visibility = ViewStates.Visible;
+                image.SetImageBitmap(m_chores[m_chorePosition].PictureBitmap);
+            }
+            else
+            {
+                picTitle.Visibility = ViewStates.Gone;
+            }
 
             string childName = database.GetChildNameFomChore(m_chores[m_chorePosition].id);
             title.Text = m_chores[m_chorePosition].name;

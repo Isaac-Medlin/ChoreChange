@@ -7,6 +7,7 @@ using System.Text;
 
 using Android.App;
 using Android.Content;
+using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -284,20 +285,19 @@ namespace ChoreChange
         /****************************************************************************************************************
          * Adds chore to database based of of creator id
         ******************************************************************************************************************/
-        public bool AddChore(string name, string description, float payout /*picture*/)
+        public bool AddChore(string name, string description, float payout, string picture)
         {
-            string pic = null; //switch with parameter once camera integration is done
             string queryString = null;
             bool choreAdded = true;
-
-            if (pic == null)
+            if (picture == null)
             {
                 queryString =
                         "INSERT INTO dbo.Chores Values(" + m_parent.id + " , '" + name + "' , '" + description + "' , " + payout + " , " + (int)Chore.choreStatus.INCOMPLETE + " , null , null) ";
             }
             else
             {
-                //query string once picture integration is figured out
+                queryString =
+                        "INSERT INTO dbo.Chores Values(" + m_parent.id + " , '" + name + "' , '" + description + "' , " + payout + " , " + (int)Chore.choreStatus.INCOMPLETE + " , '" + picture + "' , null) ";
             }
 
             using (SqlConnection connection = new SqlConnection(m_connection.connectionString))
@@ -341,7 +341,7 @@ namespace ChoreChange
                         string choreDescription;
                         float payout;
                         int completedID = 0;
-                        //picture pic
+                        string picturePath;
                         if (reader.HasRows)
                         {
                             while (reader.Read())
@@ -356,19 +356,23 @@ namespace ChoreChange
                                 if (choreStatus != Chore.choreStatus.INCOMPLETE)
                                     completedID = (int)reader["CompletedID"];
 
+                                if (!reader.IsDBNull(6))
+                                    picturePath = (string)reader["Picture"];
+                                else
+                                    picturePath = null;
                                 switch (choreStatus)
                                 {
                                     case Chore.choreStatus.INCOMPLETE:
-                                        m_parent.AddIncompleteChore(new Chore(choreID, parentID, choreName, choreDescription, payout, choreStatus/*, null*/));
+                                        m_parent.AddIncompleteChore(new Chore(choreID, parentID, choreName, choreDescription, payout, choreStatus, -1, picturePath));
                                         break;
                                     case Chore.choreStatus.ACCEPTED:
-                                        m_parent.AddAcceptedChore(new Chore(choreID, parentID, choreName, choreDescription, payout, choreStatus, completedID /*, null*/));
+                                        m_parent.AddAcceptedChore(new Chore(choreID, parentID, choreName, choreDescription, payout, choreStatus, completedID, picturePath));
                                         break;
                                     case Chore.choreStatus.AWAITING_APPROVAL:
-                                        m_parent.AddAwaitingChore(new Chore(choreID, parentID, choreName, choreDescription, payout, choreStatus, completedID/*, null*/));
+                                        m_parent.AddAwaitingChore(new Chore(choreID, parentID, choreName, choreDescription, payout, choreStatus, completedID, picturePath));
                                         break;
                                     case Chore.choreStatus.COMPLETED:
-                                        m_parent.AddCompletedChore(new Chore(choreID, parentID, choreName, choreDescription, payout, choreStatus, completedID /*, null*/));
+                                        m_parent.AddCompletedChore(new Chore(choreID, parentID, choreName, choreDescription, payout, choreStatus, completedID, picturePath));
                                         break;
                                     default:
                                         break;
