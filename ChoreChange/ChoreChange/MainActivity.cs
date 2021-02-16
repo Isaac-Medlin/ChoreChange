@@ -15,21 +15,23 @@ using Newtonsoft.Json;
 
 namespace ChoreChange
 {
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true, Icon = "@drawable/ChoreChangeLogo")]
+    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true, Icon = "@drawable/ChoreChangeLogo", NoHistory = true)]
     public class MainActivity : AppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
-            ParentAccount parent = new ParentAccount(1, "Isaac", "Where did you go to highschool?");
-            Intent parentChore = new Intent(this, typeof(ParentChoresActivity));
-            parentChore.PutExtra("account", JsonConvert.SerializeObject(parent));
-            StartActivity(parentChore);
+            //ParentAccount parent = new ParentAccount(1, "Isaac", "Where did you go to highschool?");
+            //Intent parentChore = new Intent(this, typeof(ParentChoresActivity));
+            //parentChore.PutExtra("account", JsonConvert.SerializeObject(parent));
+            Intent LoginActivity = new Intent(this, typeof(LoginActivity));
+            StartActivity(LoginActivity);
             //ChildAccount child = new ChildAccount(1, "mitch", "Favorite movie", 70, 1);
             //Intent childChore = new Intent(this, typeof(ChildChoreActivity));
             //childChore.PutExtra("account", JsonConvert.SerializeObject(child));
             //StartActivity(childChore);
         }
     }
-}
+} 

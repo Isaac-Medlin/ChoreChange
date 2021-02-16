@@ -18,6 +18,8 @@ namespace ChoreChange
         TextView description;
         TextView payout;
         TextView parentName;
+        TextView picTitle;
+        ImageView image;
         Button closeButton;
         Button acceptButton;
         public CustomChildChoreClickDialog(Activity activity, ChildAccount account, List<Chore> chores, int position, BaseAdapter<Chore> adapter)
@@ -62,14 +64,27 @@ namespace ChoreChange
             description = FindViewById<TextView>(Resource.Id.ChildClickChoreDescription);
             payout = FindViewById<TextView>(Resource.Id.ChildClickChorePayout);
             closeButton = FindViewById<Button>(Resource.Id.ChildClickCloseButton);
+            parentName = FindViewById<TextView>(Resource.Id.ChildParentName);
             acceptButton = FindViewById<Button>(Resource.Id.ChildClickConfirmButton);
+            image = FindViewById<ImageView>(Resource.Id.ChildChorePicture);
+            picTitle = FindViewById<TextView>(Resource.Id.PictureTitle);
 
+            if (m_chores[m_position].PictureBitmap != null)
+            {
+                picTitle.Visibility = ViewStates.Visible;
+                image.SetImageBitmap(m_chores[m_position].PictureBitmap);
+            }
+            else
+            {
+                picTitle.Visibility = ViewStates.Gone;
+            }
 
             title.Text = m_chores[m_position].name;
             description.Text = "Description: " + m_chores[m_position].description;
             payout.Text = "Payout: $" + m_chores[m_position].payout.ToString();
             closeButton.Text = "Close";
             acceptButton.Text = "Accept";
+            parentName.Visibility = ViewStates.Gone;
 
             acceptButton.SetTextColor(Android.Graphics.Color.DarkGreen);
             closeButton.SetTextColor(Android.Graphics.Color.Red);
@@ -95,14 +110,27 @@ namespace ChoreChange
             description = FindViewById<TextView>(Resource.Id.ChildClickChoreDescription);
             payout = FindViewById<TextView>(Resource.Id.ChildClickChorePayout);
             closeButton = FindViewById<Button>(Resource.Id.ChildClickCloseButton);
+            parentName = FindViewById<TextView>(Resource.Id.ChildParentName);
             acceptButton = FindViewById<Button>(Resource.Id.ChildClickConfirmButton);
+            image = FindViewById<ImageView>(Resource.Id.ChildChorePicture);
+            picTitle = FindViewById<TextView>(Resource.Id.PictureTitle);
 
+            if (m_chores[m_position].PictureBitmap != null)
+            {
+                picTitle.Visibility = ViewStates.Visible;
+                image.SetImageBitmap(m_chores[m_position].PictureBitmap);
+            }
+            else
+            {
+                picTitle.Visibility = ViewStates.Gone;
+            }
 
             title.Text = m_chores[m_position].name;
             description.Text = "Description: " + m_chores[m_position].description;
             payout.Text = "Payout: $" + m_chores[m_position].payout.ToString();
             closeButton.Text = "Close";
             acceptButton.Text = "Complete";
+            parentName.Visibility = ViewStates.Gone;
 
             acceptButton.SetTextColor(Android.Graphics.Color.DarkGreen);
             closeButton.SetTextColor(Android.Graphics.Color.Red);
@@ -129,10 +157,22 @@ namespace ChoreChange
             closeButton = FindViewById<Button>(Resource.Id.ChildClickCloseButton);
             acceptButton = FindViewById<Button>(Resource.Id.ChildClickConfirmButton);
             parentName = FindViewById<TextView>(Resource.Id.ChildParentName);
+            image = FindViewById<ImageView>(Resource.Id.ChildChorePicture);
+            picTitle = FindViewById<TextView>(Resource.Id.PictureTitle);
 
+            if (m_chores[m_position].PictureBitmap != null)
+            {
+                picTitle.Visibility = ViewStates.Visible;
+                image.SetImageBitmap(m_chores[m_position].PictureBitmap);
+            }
+            else
+            {
+                picTitle.Visibility = ViewStates.Gone;
+            }
             title.Text = m_chores[m_position].name;
             description.Text = "Description: " + m_chores[m_position].description;
             payout.Text = "Payout: $" + m_chores[m_position].payout.ToString();
+            parentName.Visibility = ViewStates.Visible;
             parentName.Text = "Awaiting Approval From " + parentname;
             closeButton.Text = "Close";
             closeButton.SetTextColor(Android.Graphics.Color.Red);
@@ -154,10 +194,22 @@ namespace ChoreChange
             closeButton = FindViewById<Button>(Resource.Id.ChildClickCloseButton);
             acceptButton = FindViewById<Button>(Resource.Id.ChildClickConfirmButton);
             parentName = FindViewById<TextView>(Resource.Id.ChildParentName);
+            image = FindViewById<ImageView>(Resource.Id.ChildChorePicture);
+            picTitle = FindViewById<TextView>(Resource.Id.PictureTitle);
 
+            if (m_chores[m_position].PictureBitmap != null)
+            {
+                picTitle.Visibility = ViewStates.Visible;
+                image.SetImageBitmap(m_chores[m_position].PictureBitmap);
+            }
+            else
+            {
+                picTitle.Visibility = ViewStates.Gone;
+            }
             title.Text = m_chores[m_position].name;
             description.Text = "Description: " + m_chores[m_position].description;
             payout.Text = "Payout: $" + m_chores[m_position].payout.ToString();
+            parentName.Visibility = ViewStates.Visible;
             parentName.Text = "Approved by " + parentname;
             closeButton.Text = "Close";
 

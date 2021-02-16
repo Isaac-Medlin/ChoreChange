@@ -11,6 +11,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Java.Sql;
 
 namespace ChoreChange
 {
@@ -26,7 +27,7 @@ namespace ChoreChange
         public bool Cashout()
         {
             bool success = true;
-            string queryString = "INSERT INTO dbo.CashOutHistory Values(" + m_child.id + "," + m_child.ParentID +",'" + m_child.displayName + "'," + m_child.Bank + ")";
+            string queryString = "INSERT INTO dbo.CashOutHistory Values(" + m_child.id + "," + m_child.ParentID +",'" + m_child.displayName + "'," + m_child.Bank + ",'" + DateTime.Now.Date.ToString() +  "')";
             using (SqlConnection connection = new SqlConnection(m_connection.connectionString))
             {
                 SqlCommand command = new SqlCommand(queryString, connection);
@@ -77,13 +78,15 @@ namespace ChoreChange
                 {
                     string childName;
                     float cashoutAmount;
+                    string date;
                     if (reader.HasRows)
                     {
                         while (reader.Read())
                         {
                             childName = (string)reader["childName"];
                             cashoutAmount = (float)reader.GetDouble("cashoutAmount");
-                            m_child.AddCashout(new Cashouts(childName, cashoutAmount));
+                            date = Convert.ToDateTime(reader["Date"]).ToString("MM/dd/yyyy");
+                            m_child.AddCashout(new Cashouts(childName, cashoutAmount, date));
                         }
                         reader.NextResult();
                     }
@@ -210,9 +213,12 @@ namespace ChoreChange
                             if (choreStatus != Chore.choreStatus.INCOMPLETE)
                                 completedID = (int)reader["CompletedID"];
 
-                            picturepath = (string)reader["Picture"];
+                            if (!reader.IsDBNull(6))
+                                picturepath = (string)reader["Picture"];
+                            else
+                                picturepath = null;
 
-                            m_child.AddIncompleteChore(new Chore(choreID, parentID, choreName, choreDescription, payout, choreStatus,-1 ,picturepath));
+                            m_child.AddIncompleteChore(new Chore(choreID, parentID, choreName, choreDescription, payout, choreStatus, -1, picturepath));
 
                         }
                         reader.NextResult();
@@ -242,7 +248,10 @@ namespace ChoreChange
                                 payout = (float)reader.GetDouble("Payout");
                                 Chore.choreStatus choreStatus = (Chore.choreStatus)reader["Status"];
                                 completedID = (int)reader["CompletedID"];
-                                picturepath = (string)reader["Picture"];
+                                if (!reader.IsDBNull(6))
+                                    picturepath = (string)reader["Picture"];
+                                else
+                                    picturepath = null;
 
                                 switch (ii)
                                 {

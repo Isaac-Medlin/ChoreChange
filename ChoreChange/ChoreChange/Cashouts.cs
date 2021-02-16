@@ -14,10 +14,11 @@ namespace ChoreChange
 {
     public class Cashouts
     {
-        public Cashouts(string childName, float cashAmount)
+        public Cashouts(string childName, float cashAmount, string date)
         {
             m_childName = childName;
             m_cashAmount = cashAmount;
+            m_date = date;
         }
         public float CashAmount
         {
@@ -28,7 +29,12 @@ namespace ChoreChange
         {
             get { return m_childName; }
         }
+        public string Date
+        {
+            get { return m_date; }
+        }
         private string m_childName;
+        private string m_date;
         private float m_cashAmount;
     }
 }

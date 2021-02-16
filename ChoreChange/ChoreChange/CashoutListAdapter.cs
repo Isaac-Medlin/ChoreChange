@@ -41,6 +41,7 @@ namespace ChoreChange
 
             view.FindViewById<TextView>(Resource.Id.CustomCashoutName).Text = cashout.ChildName;
             view.FindViewById<TextView>(Resource.Id.CustomCashoutAmount).Text = "Amount: $" + cashout.CashAmount;
+            view.FindViewById<TextView>(Resource.Id.CustomCashoutDate).Text = "Cashout Date: " + cashout.Date;
 
             return view;
         }

@@ -40,4 +40,11 @@
   <string name="InvalidAmountCashout">Cant cashout with $0</string>
   <string name="Picture">Picture:</string>
   <string name="AddPicture">Add Picture</string>
+  <string name="LoginIntro">Login to ChoreChange</string>
+  <string name="Username">Username:</string>
+  <string name="Password">Password:</string>
+  <string name="Login">Login</string>
+  <string name="Register">Register</string>
+  <string name="LogoDesc">Logo of the app</string>
+  <string name="RegisterIntro">Register for ChoreChange</string>
 </resources>

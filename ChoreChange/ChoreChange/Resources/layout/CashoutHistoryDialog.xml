@@ -7,6 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/CashoutHistory"
+        android:textColor="@android:color/black"
         android:textSize="25dp"
         android:gravity="center"
         android:textStyle="bold"/>

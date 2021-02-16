@@ -60,13 +60,15 @@ namespace ChoreChange
                 {
                     string childName;
                     float cashoutAmount;
+                    string date;
                     if (reader.HasRows)
                     {
                         while (reader.Read())
                         {
                             childName = (string)reader["childName"];
                             cashoutAmount = (float)reader.GetDouble("cashoutAmount");
-                            m_parent.AddCashout(new Cashouts(childName, cashoutAmount));
+                            date = Convert.ToDateTime(reader["Date"]).ToString("MM/dd/yyyy");
+                            m_parent.AddCashout(new Cashouts(childName, cashoutAmount, date));
                         }
                         reader.NextResult();
                     }

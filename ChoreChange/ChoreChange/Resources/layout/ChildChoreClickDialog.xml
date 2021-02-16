@@ -1,53 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/ChildClickChoreTitle"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:textColor="@android:color/black"
-        android:textSize="25dp"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:textColor="@android:color/black"
-        android:id="@+id/ChildClickChoreDescription"
-        android:paddingLeft="5dp"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:paddingLeft="5dp"
-        android:textColor="@android:color/black"
-        android:id="@+id/ChildClickChorePayout"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:paddingLeft="5dp"
-        android:textColor="@android:color/black"
-        android:id="@+id/ChildParentName"/>
+    android:layout_height="wrap_content">
     <LinearLayout
-        android:orientation="horizontal"
-        android:gravity="center"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <Button
-            android:id="@+id/ChildClickCloseButton"
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"/>
+            android:id="@+id/ChildClickChoreTitle"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:textSize="25dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textColor="@android:color/black"
+            android:id="@+id/ChildClickChoreDescription"
+            android:paddingLeft="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:paddingLeft="5dp"
+            android:textColor="@android:color/black"
+            android:id="@+id/ChildClickChorePayout"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:paddingLeft="5dp"
+            android:textColor="@android:color/black"
+            android:id="@+id/ChildParentName"/>
+        <TextView
+            android:id="@+id/PictureTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:paddingLeft="5dp"
+            android:text="@string/Picture"
+            android:textColor="@android:color/black"/>
+        <ImageView
+            android:id="@+id/ChildChorePicture"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:contentDescription="@string/Picture"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/ChildClickCloseButton"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"/>
 
-        <Button
-            android:id="@+id/ChildClickConfirmButton"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:visibility="gone"/>
+            <Button
+                android:id="@+id/ChildClickConfirmButton"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:visibility="gone"/>
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</ScrollView>
 
