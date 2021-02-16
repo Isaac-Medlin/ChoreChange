@@ -17,27 +17,95 @@
         android:paddingLeft="5dp"
         android:textSize="20dp"
         android:layout_height="wrap_content"
+        android:id="@+id/UsernameText"
         android:textColor="@android:color/black"
         android:text="@string/Username"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:height="20dp"
-        android:id="@+id/UsernameText"
+        android:id="@+id/Username"
+        android:backgroundTint="@android:color/black"
         android:inputType="text"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20dp"
         android:paddingLeft="5dp"
+         android:id="@+id/PasswordText"
         android:textColor="@android:color/black"
         android:text="@string/Password"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:height="20dp"
-        android:id="@+id/PasswordText"
+        android:id="@+id/Password"
+        android:backgroundTint="@android:color/black"
         android:inputType="textPassword"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:paddingLeft="5dp"
+        android:textColor="@android:color/black"
+        android:text="@string/SecQuestion"/>
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:id="@+id/SecurityQuestion"
+        android:prompt="@string/SecQuestion"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:paddingLeft="5dp"
+        android:id="@+id/SecQText"
+        android:textColor="@android:color/black"
+        android:text="@string/SecAnswer"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/SecurtyQAnswer"
+        android:inputType="textPassword"
+        android:height="20dp"
+        android:backgroundTint="@android:color/black"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:paddingLeft="5dp"
+        android:id="@+id/AccTypeText"
+        android:textColor="@android:color/black"
+        android:text="@string/AccType"/>
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RadioButton
+            android:id="@+id/ParentButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Parent"
+            android:textSize="15dp"
+            android:textColor="@android:color/black"/>
+        <RadioButton
+            android:id="@+id/ChildButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Child"
+            android:textSize="15dp"
+            android:textColor="@android:color/black"/>
+    </RadioGroup>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:textSize="20dp"
+        android:textColor="@android:color/holo_red_light"
+        android:id="@+id/errorWarning"
+        android:visibility="gone"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

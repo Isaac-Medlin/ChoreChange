@@ -47,4 +47,17 @@
   <string name="Register">Register</string>
   <string name="LogoDesc">Logo of the app</string>
   <string name="RegisterIntro">Register for ChoreChange</string>
+  <string name="SecQuestion">Select a Security Question:</string>
+  <string-array name="QuestionArray">
+    <item>Where did you go to highschool?</item>
+    <item>Who was your favorite teacher?</item>
+    <item>What\'s your favorite car?</item>
+    <item>What\'s your first pets name?</item>
+    <item>What\'s the name of your hometown?</item>
+    <item>What\'s your favorite food?</item>
+  </string-array>
+  <string name="SecAnswer">Security Question Answer:</string>
+  <string name="AccType">Select Account Type:</string>
+  <string name="Parent">Parent Account</string>
+  <string name="Child">Child Account</string>
 </resources>

@@ -25,26 +25,38 @@
         android:paddingLeft="5dp"
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
+        android:id="@+id/UsernameText"
         android:text="@string/Username"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:height="20dp"
-        android:id="@+id/UsernameText"
+        android:backgroundTint="@android:color/black"
+        android:id="@+id/Username"
         android:inputType="text"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20dp"
         android:paddingLeft="5dp"
+        android:id="@+id/PasswordText"
         android:textColor="@android:color/black"
         android:text="@string/Password"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:height="20dp"
-        android:id="@+id/PasswordText"
+        android:backgroundTint="@android:color/black"
+        android:id="@+id/Password"
         android:inputType="textPassword"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:textSize="20dp"
+        android:textColor="@android:color/holo_red_light"
+        android:id="@+id/errorWarning"
+        android:visibility="gone"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
