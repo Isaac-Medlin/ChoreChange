@@ -9,6 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Newtonsoft.Json;
 
 namespace ChoreChange
 {
@@ -34,6 +35,7 @@ namespace ChoreChange
             passwordText = FindViewById<TextView>(Resource.Id.PasswordText);
             errorText = FindViewById<TextView>(Resource.Id.errorWarning);
 
+            LoginDatabaseQueries database = new LoginDatabaseQueries();
             registerButton.Click += delegate
             {
                 Intent regIntent = new Intent(this, typeof(RegisterActivity));
@@ -44,7 +46,52 @@ namespace ChoreChange
                 bool completed = CheckFields();
                 if(completed)
                 {
-
+                    bool accountexists = database.AccountExists(username.Text);
+                    if(!accountexists)
+                    {
+                        username.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Red);
+                        usernameText.SetTextColor(Android.Graphics.Color.Red);
+                        errorText.Visibility = ViewStates.Visible;
+                        errorText.Text = "Username doesn't exist";
+                    }
+                    else
+                    {
+                        LoginDatabaseQueries.AccountTypes accountType = database.GetAccountType(username.Text);
+                        if(accountType == LoginDatabaseQueries.AccountTypes.PARENT)
+                        {
+                            ParentAccount parent = database.ParentLogin(password.Text, username.Text);
+                            if(parent == null)
+                            {
+                                password.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Red);
+                                passwordText.SetTextColor(Android.Graphics.Color.Red);
+                                errorText.Visibility = ViewStates.Visible;
+                                errorText.Text = "Incorrect Password";
+                            }
+                            else
+                            {
+                                Intent parentchore = new Intent(this, typeof(ParentChoresActivity));
+                                parentchore.PutExtra("account", JsonConvert.SerializeObject(parent));
+                                StartActivity(parentchore);
+                            }
+                        }
+                        if(accountType == LoginDatabaseQueries.AccountTypes.CHILD)
+                        {
+                            ChildAccount child = database.ChildLogin(password.Text, username.Text);
+                            if (child == null)
+                            {
+                                password.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Red);
+                                passwordText.SetTextColor(Android.Graphics.Color.Red);
+                                errorText.Visibility = ViewStates.Visible;
+                                errorText.Text = "Incorrect Password";
+                            }
+                            else
+                            {
+                                Intent childchore = new Intent(this, typeof(ChildChoreActivity));
+                                childchore.PutExtra("account", JsonConvert.SerializeObject(child));
+                                StartActivity(childchore);
+                            }
+                        }
+                    }
                 }
             };
         }

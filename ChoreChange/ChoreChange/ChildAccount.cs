@@ -18,7 +18,7 @@ namespace ChoreChange
             : base(id, displayName, securityQuestion)
         {
             m_bank = bank;
-            m_parentID = id;
+            m_parentID = parentID;
             m_incompleteChores = new List<Chore>();
             m_acceptedChores = new List<Chore>();
             m_awaitingChores = new List<Chore>();

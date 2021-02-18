@@ -82,6 +82,7 @@
     <Compile Include="CustomParentChildListClickDialog.cs" />
     <Compile Include="CustomParentChoreListClickDialog.cs" />
     <Compile Include="LoginActivity.cs" />
+    <Compile Include="LoginDatabaseQueries.cs" />
     <Compile Include="ParentChildrenActivity.cs" />
     <Compile Include="ParentChoresActivity.cs" />
     <Compile Include="ParentDatabaseQueries.cs" />
