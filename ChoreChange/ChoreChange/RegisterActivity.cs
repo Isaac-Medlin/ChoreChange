@@ -22,15 +22,18 @@ namespace ChoreChange
         TextView secAnswerText;
         TextView accountType;
         TextView errorText;
+        TextView displayText;
 
-        EditText sequrityQuestion;
+        EditText securityQuestion;
         EditText username;
         EditText password;
+        EditText displayName;
 
         RadioButton parentAcc;
         RadioButton childAcc;
         Spinner securityQuestionSpinner;
 
+        string securityQ = null;
         bool noAccountTypeSelected = true;
         bool parentAccSelected = false;
         bool childAccSelected = false;
@@ -42,9 +45,10 @@ namespace ChoreChange
             cancelButton = FindViewById<Button>(Resource.Id.CancelButton);
             registerButton = FindViewById<Button>(Resource.Id.RegisterButton);
 
-            sequrityQuestion = FindViewById<EditText>(Resource.Id.SecurtyQAnswer);
+            securityQuestion = FindViewById<EditText>(Resource.Id.SecurtyQAnswer);
             username = FindViewById<EditText>(Resource.Id.Username);
             password = FindViewById<EditText>(Resource.Id.Password);
+            displayName = FindViewById<EditText>(Resource.Id.DisplayName);
 
             parentAcc = FindViewById<RadioButton>(Resource.Id.ParentButton);
             childAcc = FindViewById<RadioButton>(Resource.Id.ChildButton);
@@ -55,10 +59,57 @@ namespace ChoreChange
             adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
             securityQuestionSpinner.Adapter = adapter;
 
+            LoginDatabaseQueries database = new LoginDatabaseQueries();
 
             registerButton.Click += delegate
             {
                 bool completed = CheckFields();
+                if (completed)
+                {
+                    bool accountexists = database.AccountExists(username.Text);
+                    if (accountexists)
+                    {
+                        username.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Red);
+                        usernameText.SetTextColor(Android.Graphics.Color.Red);
+                        errorText.Visibility = ViewStates.Visible;
+                        errorText.Text = "Username already exists";
+                    }
+                    else
+                    {
+                        if (securityQ == null)
+                        {
+                            securityQ = securityQuestionSpinner.GetItemAtPosition(0).ToString();
+                        }
+                        if (parentAccSelected)
+                        {
+                            bool failed = database.ParentRegister(displayName.Text, username.Text, password.Text, securityQ, securityQuestion.Text);
+                            if (!failed)
+                            {
+                                Toast.MakeText(this, "Account Created", ToastLength.Short).Show();
+                                Intent loginpage = new Intent(this, typeof(LoginActivity));
+                                StartActivity(loginpage);
+                            }
+                            else
+                            {
+                                errorText.Text = "Something Went Wrong!";
+                            }
+                        }
+                        if (childAccSelected)
+                        {
+                            bool failed = database.ChildRegister(displayName.Text, username.Text, password.Text, securityQ, securityQuestion.Text);
+                            if (!failed)
+                            {
+                                Toast.MakeText(this, "Account Created", ToastLength.Short).Show();
+                                Intent loginpage = new Intent(this, typeof(LoginActivity));
+                                StartActivity(loginpage);
+                            }
+                            else
+                            {
+                                errorText.Text = "Something Went Wrong!";
+                            }
+                        }
+                    }
+                }
             };
             parentAcc.Click += delegate
             {
@@ -82,8 +133,7 @@ namespace ChoreChange
         private void spinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
             Spinner spinner = (Spinner)sender;
-            string toast = string.Format("Selected question is {0}", spinner.GetItemAtPosition(e.Position));
-            Toast.MakeText(this, toast, ToastLength.Long).Show();
+            securityQ = spinner.GetItemAtPosition(e.Position).ToString();
         }
         private bool CheckFields()
         {
@@ -92,10 +142,12 @@ namespace ChoreChange
             secAnswerText = FindViewById<TextView>(Resource.Id.SecQText);
             accountType = FindViewById<TextView>(Resource.Id.AccTypeText);
             errorText = FindViewById<TextView>(Resource.Id.errorWarning);
+            displayText = FindViewById<TextView>(Resource.Id.DisplayNameText);
 
-            sequrityQuestion = FindViewById<EditText>(Resource.Id.SecurtyQAnswer);
+            securityQuestion = FindViewById<EditText>(Resource.Id.SecurtyQAnswer);
             username = FindViewById<EditText>(Resource.Id.Username);
             password = FindViewById<EditText>(Resource.Id.Password);
+            displayName = FindViewById<EditText>(Resource.Id.DisplayName);
 
             parentAcc = FindViewById<RadioButton>(Resource.Id.ParentButton);
             childAcc = FindViewById<RadioButton>(Resource.Id.ChildButton);
@@ -113,6 +165,18 @@ namespace ChoreChange
                 usernameText.SetTextColor(Android.Graphics.Color.Black);
             }
 
+            if (String.IsNullOrWhiteSpace(displayName.Text))
+            {
+                displayName.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Red);
+                displayText.SetTextColor(Android.Graphics.Color.Red);
+                completedForm = false;
+            }
+            else
+            {
+                displayName.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Black);
+                displayText.SetTextColor(Android.Graphics.Color.Black);
+            }
+
             if (String.IsNullOrWhiteSpace(password.Text))
             {
                 password.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Red);
@@ -125,19 +189,19 @@ namespace ChoreChange
                 passwordText.SetTextColor(Android.Graphics.Color.Black);
             }
 
-            if (String.IsNullOrWhiteSpace(sequrityQuestion.Text))
+            if (String.IsNullOrWhiteSpace(securityQuestion.Text))
             {
-                sequrityQuestion.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Red);
+                securityQuestion.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Red);
                 secAnswerText.SetTextColor(Android.Graphics.Color.Red);
                 completedForm = false;
             }
             else
             {
-                sequrityQuestion.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Black);
+                securityQuestion.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Black);
                 secAnswerText.SetTextColor(Android.Graphics.Color.Black);
             }
 
-            if(noAccountTypeSelected)
+            if (noAccountTypeSelected)
             {
                 parentAcc.SetTextColor(Android.Graphics.Color.Red);
                 childAcc.SetTextColor(Android.Graphics.Color.Red);

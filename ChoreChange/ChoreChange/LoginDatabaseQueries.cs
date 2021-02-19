@@ -26,6 +26,7 @@ namespace ChoreChange
             m_connection = new ConnectionString();
         }
 
+        //checks if the account exists in database
         public bool AccountExists(string username)
         {
             bool exists = true;
@@ -48,7 +49,7 @@ namespace ChoreChange
             }
             return exists;
         }
-
+        //gets the account type 
         public AccountTypes GetAccountType(string username)
         {
             AccountTypes type = AccountTypes.CHILD;
@@ -74,6 +75,7 @@ namespace ChoreChange
             }
             return type;
         }
+        //logins a parent account
         public ParentAccount ParentLogin(string password, string username)
         {
             ParentAccount account = null;
@@ -110,6 +112,7 @@ namespace ChoreChange
             }
             return account;
         }
+        //logins a child account
         public ChildAccount ChildLogin(string password, string username)
         {
             ChildAccount account = null;
@@ -149,6 +152,87 @@ namespace ChoreChange
                 account = new ChildAccount(id, displayName, securityQ, bank, parentID);
             }
             return account;
+        }
+        //logins a parent account
+        public bool ParentRegister(string displayName, string username, string password, string securityQuestion, string securityAnswer)
+        { 
+            string queryString =
+                        "INSERT INTO dbo.ParentAccounts Values('" + displayName + "','" + username + "','" + password + "','" + securityQuestion +"','" + securityAnswer + "') ";
+
+            bool failed = false;
+            using (SqlConnection connection = new SqlConnection(m_connection.connectionString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                connection.Open();
+                try
+                {
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception exc)
+                {
+                    Console.WriteLine("{0}", exc.Message);
+                    failed = true;
+                }
+                connection.Close();
+            }
+            queryString =
+                        "INSERT INTO dbo.Accounts Values('" + username + "'," + (int)AccountTypes.PARENT + ") ";            
+            using (SqlConnection connection = new SqlConnection(m_connection.connectionString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                connection.Open();
+                try
+                {
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception exc)
+                {
+                    Console.WriteLine("{0}", exc.Message);
+                }
+                connection.Close();
+            }
+            return failed;
+        }
+        //registers a child account
+        public bool ChildRegister(string displayName, string username, string password, string securityQuestion, string securityAnswer)
+        {
+            string queryString =
+                        "INSERT INTO dbo.ChildAccounts Values('" + displayName + "','" + username + "','" + password + "'," + 0 
+                        +"," + 0 + ",'" + securityQuestion + "','" + securityAnswer + "') ";
+
+            bool failed = false;
+            using (SqlConnection connection = new SqlConnection(m_connection.connectionString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                connection.Open();
+                try
+                {
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception exc)
+                {
+                    Console.WriteLine("{0}", exc.Message);
+                    failed = true;
+                }
+                connection.Close();
+            }
+            queryString =
+                        "INSERT INTO dbo.Accounts Values('" + username + "'," + (int)AccountTypes.CHILD + ") ";
+            using (SqlConnection connection = new SqlConnection(m_connection.connectionString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                connection.Open();
+                try
+                {
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception exc)
+                {
+                    Console.WriteLine("{0}", exc.Message);
+                }
+                connection.Close();
+            }
+            return failed;
         }
         ConnectionString m_connection;
     }

@@ -44,6 +44,21 @@
         android:inputType="textPassword"/>
     <TextView
         android:layout_width="match_parent"
+        android:paddingLeft="5dp"
+        android:textSize="20dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/DisplayNameText"
+        android:textColor="@android:color/black"
+        android:text="@string/DisplayName"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:height="20dp"
+        android:id="@+id/DisplayName"
+        android:backgroundTint="@android:color/black"
+        android:inputType="text"/>
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20dp"
         android:paddingLeft="5dp"
