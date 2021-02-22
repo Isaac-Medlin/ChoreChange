@@ -9,7 +9,23 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/ParentChatAndAccount">
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:background="@color/mtrl_btn_transparent_bg_color"
+            android:src="@drawable/message"
+            android:id="@+id/ParentMessageButton"
+            android:paddingLeft="10dp"
+            android:contentDescription="@string/Picture"/>
+        </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_below="@id/ParentChatAndAccount"
         android:id="@+id/ParentChoresCycleButtons">
         <LinearLayout
             android:layout_width="match_parent"

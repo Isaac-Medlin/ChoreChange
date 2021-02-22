@@ -11,6 +11,7 @@ using Android.Support.Design.Widget;
 using Android.Views;
 using Android.Widget;
 using Newtonsoft.Json;
+using Xamarin.Essentials;
 
 namespace ChoreChange
 {
@@ -26,6 +27,7 @@ namespace ChoreChange
         Button awaitingApprovalButton;
         Button completedButton;
         Button deleteAllCompletedChores;
+        ImageButton chat;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -61,7 +63,7 @@ namespace ChoreChange
             awaitingApprovalButton = FindViewById<Button>(Resource.Id.ParentChoreAwaitingButton);
             completedButton = FindViewById<Button>(Resource.Id.ParentChoreCompletedButton);
             deleteAllCompletedChores = FindViewById<Button>(Resource.Id.DeleteAllCompletedChores);
-
+            chat = FindViewById<ImageButton>(Resource.Id.ParentMessageButton);
             Chore.choreStatus lastChoreTabSelected = Chore.choreStatus.INCOMPLETE;
 
             toDobutton.Click += delegate
@@ -75,6 +77,12 @@ namespace ChoreChange
                 adapter = new ChoreListAdapter(this, parent.IncompleteChores);
                 choreList.SetAdapter(adapter);
                 lastChoreTabSelected = Chore.choreStatus.INCOMPLETE;
+            };
+            chat.Click += delegate
+            {
+                ComposeMessageDialog diag = new ComposeMessageDialog(this, parent);
+                diag.Window.SetSoftInputMode(SoftInput.AdjustResize);
+                diag.Show();
             };
             acceptedButton.Click += delegate
             {

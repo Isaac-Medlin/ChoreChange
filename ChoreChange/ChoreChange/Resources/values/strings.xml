@@ -61,4 +61,6 @@
   <string name="Parent">Parent Account</string>
   <string name="Child">Child Account</string>
   <string name="DisplayName">Display Name:</string>
+  <string name="EnterNumber">Enter Number:</string>
+  <string name="EnterMessage">Enter Message:</string>
 </resources>
