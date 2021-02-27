@@ -70,6 +70,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Account.cs" />
+    <Compile Include="ChildAccountListAdapter.cs" />
+    <Compile Include="ParentAccountListAdapter.cs" />
     <Compile Include="ChildBankActivity.cs" />
     <Compile Include="ChildChoreActivity.cs" />
     <Compile Include="ChildDatabaseQueries.cs" />
@@ -100,6 +102,8 @@
     <Compile Include="RegisterActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StoredAccountsSingleton.cs" />
+    <Compile Include="SwitchAccountDialog.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -268,13 +272,23 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Accounts.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\message.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\ComposeMessageDialog.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Accounts.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\SwitchAccountDialog.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\CustomAccountList.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

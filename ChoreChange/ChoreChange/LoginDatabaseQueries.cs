@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -109,6 +110,31 @@ namespace ChoreChange
             if (password == retrievedPassword)
             { 
                 account = new ParentAccount(id, displayName, securityQ);
+                StoredAccountsSingleton acc = StoredAccountsSingleton.GetInstance();
+                bool alreadyexists = false;
+                foreach(ParentAccount storedAccount in acc.ParentAccounts)
+                {
+                    if (id == storedAccount.id)
+                        alreadyexists = true;
+                }
+                if(alreadyexists == false)
+                {
+                    acc.AddParent(account);
+                    var backingFile = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "parentAccounts.txt");
+                    try
+                    {
+                        using (var writer = File.AppendText(backingFile))
+                        {
+                            writer.WriteLine(account.id.ToString());
+                            writer.WriteLine(account.displayName);
+                            writer.WriteLine(account.securityQuestion);
+                        }
+                    }
+                    catch (Exception r)
+                    {
+                        System.Console.WriteLine(r.Message);
+                    }
+                }
             }
             return account;
         }
@@ -150,9 +176,37 @@ namespace ChoreChange
             if (password == retrievedPassword)
             {
                 account = new ChildAccount(id, displayName, securityQ, bank, parentID);
+                StoredAccountsSingleton acc = StoredAccountsSingleton.GetInstance();
+                bool alreadyexists = false;
+                foreach (ChildAccount storedAccount in acc.ChildAccounts)
+                {
+                    if (id == storedAccount.id)
+                        alreadyexists = true;
+                }
+                if (alreadyexists == false)
+                {
+                    acc.AddChild(account);
+                    var backingFile = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "childAccounts.txt");
+                    try
+                    {
+                        using (var writer = File.AppendText(backingFile))
+                        {
+                            writer.WriteLine(account.id.ToString());
+                            writer.WriteLine(account.displayName);
+                            writer.WriteLine(account.securityQuestion);
+                            writer.WriteLine(account.Bank.ToString());
+                            writer.WriteLine(account.ParentID.ToString());
+                        }
+                    }
+                    catch (Exception r)
+                    {
+                        System.Console.WriteLine(r.Message);
+                    }
+                }
             }
             return account;
         }
+        
         //logins a parent account
         public bool ParentRegister(string displayName, string username, string password, string securityQuestion, string securityAnswer)
         { 

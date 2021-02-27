@@ -25,6 +25,7 @@ namespace ChoreChange
         Button awaitingApprovalButton;
         Button completedButton;
         ImageButton chat;
+        ImageButton account;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -50,11 +51,18 @@ namespace ChoreChange
             completedButton = FindViewById<Button>(Resource.Id.ChildChoreCompletedButton);
             choreList = FindViewById<ListView>(Resource.Id.ChildChoreToDoList);
             chat = FindViewById<ImageButton>(Resource.Id.ChildMessageButton);
+            account = FindViewById<ImageButton>(Resource.Id.ChildAccountsButton);
 
             ChildDatabaseQueries database = new ChildDatabaseQueries(child);
             database.GetChores();
 
             Chore.choreStatus lastChoreTabSelected = Chore.choreStatus.INCOMPLETE;
+            account.Click += delegate
+            {
+                SwitchAccountDialog diag = new SwitchAccountDialog(this);
+                diag.Window.SetSoftInputMode(SoftInput.AdjustResize);
+                diag.Show();
+            };
             chat.Click += delegate
             {
                 ComposeMessageDialog diag = new ComposeMessageDialog(this, child);

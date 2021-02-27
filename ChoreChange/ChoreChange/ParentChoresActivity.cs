@@ -28,6 +28,7 @@ namespace ChoreChange
         Button completedButton;
         Button deleteAllCompletedChores;
         ImageButton chat;
+        ImageButton accounts;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -64,6 +65,7 @@ namespace ChoreChange
             completedButton = FindViewById<Button>(Resource.Id.ParentChoreCompletedButton);
             deleteAllCompletedChores = FindViewById<Button>(Resource.Id.DeleteAllCompletedChores);
             chat = FindViewById<ImageButton>(Resource.Id.ParentMessageButton);
+            accounts = FindViewById<ImageButton>(Resource.Id.ParentdAccountsButton);
             Chore.choreStatus lastChoreTabSelected = Chore.choreStatus.INCOMPLETE;
 
             toDobutton.Click += delegate
@@ -77,6 +79,12 @@ namespace ChoreChange
                 adapter = new ChoreListAdapter(this, parent.IncompleteChores);
                 choreList.SetAdapter(adapter);
                 lastChoreTabSelected = Chore.choreStatus.INCOMPLETE;
+            };
+            accounts.Click += delegate
+            {
+                SwitchAccountDialog diag = new SwitchAccountDialog(this);
+                diag.Window.SetSoftInputMode(SoftInput.AdjustResize);
+                diag.Show();
             };
             chat.Click += delegate
             {

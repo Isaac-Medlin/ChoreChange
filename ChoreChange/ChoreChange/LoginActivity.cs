@@ -35,6 +35,7 @@ namespace ChoreChange
             passwordText = FindViewById<TextView>(Resource.Id.PasswordText);
             errorText = FindViewById<TextView>(Resource.Id.errorWarning);
 
+         
             LoginDatabaseQueries database = new LoginDatabaseQueries();
             registerButton.Click += delegate
             {

@@ -10,15 +10,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:paddingTop="5dp"
+        android:weightSum="2"
         android:id="@+id/ParentChatAndAccount">
         <ImageButton
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="left"
+            android:layout_weight="1"
             android:background="@color/mtrl_btn_transparent_bg_color"
             android:src="@drawable/message"
             android:id="@+id/ParentMessageButton"
-            android:paddingLeft="10dp"
+            android:contentDescription="@string/Picture"/>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:layout_weight="1"
+            android:id="@+id/ParentdAccountsButton"
+            android:src="@drawable/accounts"
+            android:background="@color/mtrl_btn_transparent_bg_color"
             android:contentDescription="@string/Picture"/>
         </LinearLayout>
     <LinearLayout

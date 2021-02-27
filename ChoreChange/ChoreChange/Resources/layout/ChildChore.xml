@@ -10,6 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:paddingTop="10dp"
+        android:weightSum="2"
         android:id="@+id/ChildChatAndAccount">
         <ImageButton
             android:layout_width="wrap_content"
@@ -17,10 +19,19 @@
             android:layout_gravity="left"
             android:background="@color/mtrl_btn_transparent_bg_color"
             android:src="@drawable/message"
-            android:id="@+id/ChildMessageButton"
-            android:paddingLeft="10dp"
+            android:id="@+id/ChildMessageButton"        
+            android:layout_weight="1"
             android:contentDescription="@string/Picture"/>
-        </LinearLayout>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ChildAccountsButton"
+            android:src="@drawable/accounts"
+            android:layout_gravity="right"
+            android:layout_weight="1"
+            android:background="@color/mtrl_btn_transparent_bg_color"
+            android:contentDescription="@string/Picture"/>
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
