@@ -47,6 +47,30 @@ namespace ChoreChange
             }
         }
 
+        public int GetCashoutEntryAmount()
+        {
+            int amount = 0;
+            string queryString = "SELECT * FROM dbo.CashOutHistory WHERE ParentID=" + m_parent.id;
+            using (SqlConnection connection = new SqlConnection(m_connection.connectionString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {                   
+                    if (reader.HasRows)
+                    {
+                        while(reader.Read())
+                        {
+                            amount++;
+                        }
+                        reader.NextResult();
+                    }
+                    connection.Close();
+                }
+            }
+            return amount;
+        }
+        //Get CashoutHistory
         public void GetCashoutHistory()
         {
             m_parent.Cashouts.Clear();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -8,9 +9,11 @@ using Android.Content;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.Design.Widget;
+using Android.Support.V4.App;
 using Android.Views;
 using Android.Widget;
 using Newtonsoft.Json;
+using WindowsAzure.Messaging.NotificationHubs;
 using Xamarin.Essentials;
 
 namespace ChoreChange
@@ -35,17 +38,72 @@ namespace ChoreChange
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.ParentChore);
-
             navigation = FindViewById<BottomNavigationView>(Resource.Id.navigation);
             navigation.SelectedItemId = Resource.Id.Parent_Navigation_Chores;
             navigation.SetOnNavigationItemSelectedListener(this);
             Intent intent = this.Intent;
             ParentAccount parent = JsonConvert.DeserializeObject<ParentAccount>(intent.GetStringExtra("account"));
-
             ParentDatabaseQueries database = new ParentDatabaseQueries(parent);
             database.GetChores();
-            BaseAdapter<Chore> adapter = null;
 
+            int amountofChashouts = database.GetCashoutEntryAmount();
+            //see if there's been a new cashout request 
+            var backingFile = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "parentAccount" + parent.id.ToString() + ".txt");
+            if (backingFile == null || !File.Exists(backingFile))
+            {
+                try
+                {
+                    using (var writer = File.CreateText(backingFile))
+                    {
+                        writer.WriteLine(amountofChashouts);
+                    }
+                }
+                catch (Exception r)
+                {
+                    System.Console.WriteLine(r.Message);
+                }
+            }
+            else
+            {
+                int prevousCashoutAmount = 0;
+                using (var reader = new StreamReader(backingFile, true))
+                {
+                    string line;
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        prevousCashoutAmount = int.Parse(line);
+                    }
+                }
+                if(prevousCashoutAmount < amountofChashouts)
+                {
+                    var notificationBuilder = new NotificationCompat.Builder(this, MainActivity.CHANNEL_ID);
+
+                    notificationBuilder.SetContentTitle("New Cashout Request")
+                                .SetSmallIcon(Resource.Drawable.ChoreChangeLogo)
+                                .SetContentText("One of your children have made a cashout request")
+                                .SetAutoCancel(true)
+                                .SetShowWhen(false);
+
+                    var notificationManager = NotificationManager.FromContext(this);
+
+                    notificationManager.Notify(0, notificationBuilder.Build());
+
+
+                    try
+                    {
+                        using (var writer = File.CreateText(backingFile))
+                        {
+                            writer.WriteLine(amountofChashouts);
+                        }
+                    }
+                    catch (Exception r)
+                    {
+                        System.Console.WriteLine(r.Message);
+                    }
+                }
+            }
+
+            BaseAdapter<Chore> adapter = null;
             choreList = FindViewById<ListView>(Resource.Id.ParentChoreToDoList);
             adapter = new ChoreListAdapter(this, parent.IncompleteChores);
             choreList.SetAdapter(adapter);

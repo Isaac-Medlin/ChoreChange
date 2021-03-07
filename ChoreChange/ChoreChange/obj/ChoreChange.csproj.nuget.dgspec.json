@@ -23,24 +23,28 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "monoandroid90"
+          "monoandroid10.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "monoandroid90": {
+          "monoandroid10.0": {
             "projectReferences": {}
           }
         }
       },
       "frameworks": {
-        "monoandroid90": {
+        "monoandroid10.0": {
           "dependencies": {
             "Azure.Storage.Blobs": {
               "target": "Package",
               "version": "[12.8.0, )"
+            },
+            "Microsoft.Azure.NotificationHubs": {
+              "target": "Package",
+              "version": "[4.1.0, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",
@@ -70,9 +74,37 @@
               "target": "Package",
               "version": "[28.0.0.3, )"
             },
+            "Xamarin.AndroidX.Legacy.Support.Core.UI": {
+              "target": "Package",
+              "version": "[1.0.0.8, )"
+            },
+            "Xamarin.AndroidX.Lifecycle.LiveData": {
+              "target": "Package",
+              "version": "[2.3.0.1, )"
+            },
+            "Xamarin.Azure.NotificationHubs.Android": {
+              "target": "Package",
+              "version": "[1.1.4.1, )"
+            },
             "Xamarin.Essentials": {
               "target": "Package",
               "version": "[1.6.1, )"
+            },
+            "Xamarin.Firebase.Messaging": {
+              "target": "Package",
+              "version": "[121.0.1, )"
+            },
+            "Xamarin.Google.Android.Material": {
+              "target": "Package",
+              "version": "[1.3.0.1, )"
+            },
+            "Xamarin.Google.Dagger": {
+              "target": "Package",
+              "version": "[2.27.0, )"
+            },
+            "Xamarin.GooglePlayServices.Base": {
+              "target": "Package",
+              "version": "[117.6.0, )"
             }
           }
         }

@@ -32,7 +32,7 @@ namespace ChoreChange
         {
             bool exists = true;
             string queryString =
-                        "SELECT * FROM dbo.Accounts WHERE username = '"+ username +"'";
+                        "SELECT * FROM dbo.Accounts WHERE username = '" + username + "'";
 
             using (SqlConnection connection = new SqlConnection(m_connection.connectionString))
             {
@@ -108,16 +108,16 @@ namespace ChoreChange
                 connection.Close();
             }
             if (password == retrievedPassword)
-            { 
+            {
                 account = new ParentAccount(id, displayName, securityQ);
                 StoredAccountsSingleton acc = StoredAccountsSingleton.GetInstance();
                 bool alreadyexists = false;
-                foreach(ParentAccount storedAccount in acc.ParentAccounts)
+                foreach (ParentAccount storedAccount in acc.ParentAccounts)
                 {
                     if (id == storedAccount.id)
                         alreadyexists = true;
                 }
-                if(alreadyexists == false)
+                if (alreadyexists == false)
                 {
                     acc.AddParent(account);
                     var backingFile = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "parentAccounts.txt");
@@ -206,12 +206,37 @@ namespace ChoreChange
             }
             return account;
         }
-        
+        public int GetChildsParentID(int id)
+        {
+            int parentID = 0;
+            string queryString =
+                        "SELECT ParentID FROM dbo.ChildAccounts WHERE ID = '" + id + "'";
+            using (SqlConnection connection = new SqlConnection(m_connection.connectionString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            parentID = (int)reader["ParentID"];
+                        }
+                        reader.NextResult();
+                    }
+                }
+
+                connection.Close();
+            }
+            return parentID;
+        }
+
         //logins a parent account
         public bool ParentRegister(string displayName, string username, string password, string securityQuestion, string securityAnswer)
-        { 
+        {
             string queryString =
-                        "INSERT INTO dbo.ParentAccounts Values('" + displayName + "','" + username + "','" + password + "','" + securityQuestion +"','" + securityAnswer + "') ";
+                        "INSERT INTO dbo.ParentAccounts Values('" + displayName + "','" + username + "','" + password + "','" + securityQuestion + "','" + securityAnswer + "') ";
 
             bool failed = false;
             using (SqlConnection connection = new SqlConnection(m_connection.connectionString))
@@ -230,7 +255,7 @@ namespace ChoreChange
                 connection.Close();
             }
             queryString =
-                        "INSERT INTO dbo.Accounts Values('" + username + "'," + (int)AccountTypes.PARENT + ") ";            
+                        "INSERT INTO dbo.Accounts Values('" + username + "'," + (int)AccountTypes.PARENT + ") ";
             using (SqlConnection connection = new SqlConnection(m_connection.connectionString))
             {
                 SqlCommand command = new SqlCommand(queryString, connection);
@@ -251,8 +276,8 @@ namespace ChoreChange
         public bool ChildRegister(string displayName, string username, string password, string securityQuestion, string securityAnswer)
         {
             string queryString =
-                        "INSERT INTO dbo.ChildAccounts Values('" + displayName + "','" + username + "','" + password + "'," + 0 
-                        +"," + 0 + ",'" + securityQuestion + "','" + securityAnswer + "') ";
+                        "INSERT INTO dbo.ChildAccounts Values('" + displayName + "','" + username + "','" + password + "'," + 0
+                        + "," + 0 + ",'" + securityQuestion + "','" + securityAnswer + "') ";
 
             bool failed = false;
             using (SqlConnection connection = new SqlConnection(m_connection.connectionString))
