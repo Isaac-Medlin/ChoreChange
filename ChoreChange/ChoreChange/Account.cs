@@ -27,6 +27,7 @@ namespace ChoreChange
         public string displayName
         {
             get { return m_displayName; }
+            set { m_displayName = value; }
         }
         public string securityQuestion
         {

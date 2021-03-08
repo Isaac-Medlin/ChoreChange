@@ -39,7 +39,7 @@ namespace ChoreChange
 
             //notificationManager.Notify(0, notificationBuilder.Build());
 
-
+            var backingFile = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "childAccounts.txt");
             RetrieveAccounts();
             StoredAccountsSingleton acc = StoredAccountsSingleton.GetInstance();
             if (acc.ParentAccounts.Count > 0)

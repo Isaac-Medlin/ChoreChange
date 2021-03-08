@@ -67,4 +67,7 @@
   <string name="AddAccount">Add Account</string>
   <string name="ParentAccounts">Parent Accounts</string>
   <string name="ChildAccounts">Child Accounts</string>
+  <string name="ChangeName">Change Display Name</string>
+  <string name="EnterName">Enter New Display Name:</string>
+  <string name="ChangeNameError">Field has to be filled out</string>
 </resources>

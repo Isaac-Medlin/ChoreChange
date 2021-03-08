@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -21,6 +22,56 @@ namespace ChoreChange
         {
             m_parent = parent;
             m_connection = new ConnectionString();
+        }
+
+        //changes accounts display name
+        public void ChangeDisplayName(string name)
+        {
+            StoredAccountsSingleton accounts = StoredAccountsSingleton.GetInstance();
+
+            var backingFile = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "parentAccounts.txt");
+            using (var writer = File.CreateText(backingFile)) { }
+
+            foreach (ParentAccount acc in accounts.ParentAccounts)
+            {
+                if (m_parent.id == acc.id)
+                {
+                    acc.displayName = name;
+                }
+
+                try
+                {
+                    using (var writer = File.AppendText(backingFile))
+                    {
+                        writer.WriteLine(acc.id.ToString());
+                        writer.WriteLine(acc.displayName);
+                        writer.WriteLine(acc.securityQuestion);
+                    }
+                }
+                catch (Exception r)
+                {
+                    System.Console.WriteLine(r.Message);
+                }
+            }
+
+            string queryString =
+                        "UPDATE dbo.ParentAccounts SET DisplayName='" + name + "' WHERE ID= " + m_parent.id;
+
+            using (SqlConnection connection = new SqlConnection(m_connection.connectionString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                connection.Open();
+                try
+                {
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception exc)
+                {
+                    Console.WriteLine(exc.Message);
+                }
+
+                connection.Close();
+            }
         }
         /****************************************************************************************************************
          * Purpose: Unlinks child from parent account
@@ -56,10 +107,10 @@ namespace ChoreChange
                 SqlCommand command = new SqlCommand(queryString, connection);
                 connection.Open();
                 using (SqlDataReader reader = command.ExecuteReader())
-                {                   
+                {
                     if (reader.HasRows)
                     {
-                        while(reader.Read())
+                        while (reader.Read())
                         {
                             amount++;
                         }

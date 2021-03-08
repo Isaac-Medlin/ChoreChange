@@ -35,7 +35,9 @@ namespace ChoreChange
 
             changeName.Click += delegate
             {
-
+                ChildChangeNameDialog diag = new ChildChangeNameDialog(this, child);
+                diag.Window.SetSoftInputMode(SoftInput.AdjustResize);
+                diag.Show();
             };
             changePassword.Click += delegate
             {

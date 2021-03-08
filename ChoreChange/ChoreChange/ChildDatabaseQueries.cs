@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -23,6 +24,57 @@ namespace ChoreChange
             m_connection = new ConnectionString();
         }
 
+        //changes accounts displayname
+        public void ChangeDisplayName(string name)
+        {
+            StoredAccountsSingleton accounts = StoredAccountsSingleton.GetInstance();
+
+            var backingFile = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "childAccounts.txt");
+            using (var writer = File.CreateText(backingFile)) { }
+
+            foreach (ChildAccount acc in accounts.ChildAccounts)
+            {
+                if (m_child.id == acc.id)
+                {
+                    acc.displayName = name;
+                }
+
+                try
+                {
+                    using (var writer = File.AppendText(backingFile))
+                    {
+                        writer.WriteLine(acc.id.ToString());
+                        writer.WriteLine(acc.displayName);
+                        writer.WriteLine(acc.securityQuestion);
+                        writer.WriteLine(acc.Bank.ToString());
+                        writer.WriteLine(acc.ParentID.ToString());
+                    }
+                }
+                catch (Exception r)
+                {
+                    System.Console.WriteLine(r.Message);
+                }
+            }
+
+            string queryString =
+                        "UPDATE dbo.ChildAccounts SET DisplayName='" + name + "' WHERE ID= " + m_child.id;
+
+            using (SqlConnection connection = new SqlConnection(m_connection.connectionString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                connection.Open();
+                try
+                {
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception exc)
+                {
+                    Console.WriteLine(exc.Message);
+                }
+
+                connection.Close();
+            }
+        }
         //cashouts a child, reseting thier amount to 0 and adding it into the cashout history
         public bool Cashout()
         {

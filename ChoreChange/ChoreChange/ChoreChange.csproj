@@ -72,6 +72,7 @@
     <Compile Include="Account.cs" />
     <Compile Include="AzureListener.cs" />
     <Compile Include="ChildAccountListAdapter.cs" />
+    <Compile Include="ChildChangeNameDialog.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="ParentAccountListAdapter.cs" />
     <Compile Include="ChildBankActivity.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="CustomParentChoreListClickDialog.cs" />
     <Compile Include="LoginActivity.cs" />
     <Compile Include="LoginDatabaseQueries.cs" />
+    <Compile Include="ParentChangeNameDialog.cs" />
     <Compile Include="ParentChildrenActivity.cs" />
     <Compile Include="ParentChoresActivity.cs" />
     <Compile Include="ParentDatabaseQueries.cs" />
@@ -316,6 +318,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\CustomAccountList.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\ChangeNameDialog.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
